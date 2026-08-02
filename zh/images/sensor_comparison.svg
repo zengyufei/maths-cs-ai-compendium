@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 340" width="800" height="340">
+  <text x="400" y="22" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">传感器模态：优势与弱点</text>
+
+  <!-- Column headers -->
+  <text x="200" y="55" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="11" font-weight="bold" fill="#666">分辨率</text>
+  <text x="340" y="55" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="11" font-weight="bold" fill="#666">深度</text>
+  <text x="480" y="55" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="11" font-weight="bold" fill="#666">耐候性</text>
+  <text x="620" y="55" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="11" font-weight="bold" fill="#666">速度</text>
+  <text x="740" y="55" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="11" font-weight="bold" fill="#666">成本</text>
+
+  <!-- Camera row -->
+  <rect x="20" y="70" width="100" height="50" rx="8" fill="#3498db" fill-opacity="0.15" stroke="#3498db" stroke-width="1.5"/>
+  <text x="70" y="92" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="13" font-weight="bold" fill="#3498db">相机</text>
+  <text x="70" y="108" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="9" fill="#3498db">RGB 图像</text>
+  <!-- Ratings -->
+  <text x="200" y="100" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="20" fill="#27ae60">●●●</text>
+  <text x="340" y="100" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="20" fill="#e74c3c">●○○</text>
+  <text x="480" y="100" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="20" fill="#e74c3c">●○○</text>
+  <text x="620" y="100" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="20" fill="#f39c12">●●○</text>
+  <text x="740" y="100" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="20" fill="#27ae60">●●●</text>
+
+  <!-- LiDAR row -->
+  <rect x="20" y="135" width="100" height="50" rx="8" fill="#27ae60" fill-opacity="0.15" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="70" y="157" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="13" font-weight="bold" fill="#27ae60">LiDAR</text>
+  <text x="70" y="173" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="9" fill="#27ae60">激光脉冲</text>
+  <text x="200" y="165" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="20" fill="#f39c12">●●○</text>
+  <text x="340" y="165" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="20" fill="#27ae60">●●●</text>
+  <text x="480" y="165" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="20" fill="#f39c12">●●○</text>
+  <text x="620" y="165" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="20" fill="#e74c3c">●○○</text>
+  <text x="740" y="165" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="20" fill="#e74c3c">●○○</text>
+
+  <!-- Radar row -->
+  <rect x="20" y="200" width="100" height="50" rx="8" fill="#e74c3c" fill-opacity="0.15" stroke="#e74c3c" stroke-width="1.5"/>
+  <text x="70" y="222" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="13" font-weight="bold" fill="#e74c3c">雷达</text>
+  <text x="70" y="238" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="9" fill="#e74c3c">无线电波</text>
+  <text x="200" y="230" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="20" fill="#e74c3c">●○○</text>
+  <text x="340" y="230" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="20" fill="#f39c12">●●○</text>
+  <text x="480" y="230" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="20" fill="#27ae60">●●●</text>
+  <text x="620" y="230" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="20" fill="#27ae60">●●●</text>
+  <text x="740" y="230" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="20" fill="#f39c12">●●○</text>
+
+  <!-- IMU row -->
+  <rect x="20" y="265" width="100" height="50" rx="8" fill="#9b59b6" fill-opacity="0.15" stroke="#9b59b6" stroke-width="1.5"/>
+  <text x="70" y="287" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="13" font-weight="bold" fill="#9b59b6">IMU</text>
+  <text x="70" y="303" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="9" fill="#9b59b6">加速度计 + 陀螺仪</text>
+  <text x="200" y="295" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="11" fill="#999">n/a</text>
+  <text x="340" y="295" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="11" fill="#999">n/a</text>
+  <text x="480" y="295" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="20" fill="#27ae60">●●●</text>
+  <text x="620" y="295" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="20" fill="#27ae60">●●●</text>
+  <text x="740" y="295" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="20" fill="#27ae60">●●●</text>
+
+  <!-- Legend -->
+  <text x="200" y="335" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="10" fill="#27ae60">●●● = 优秀</text>
+  <text x="380" y="335" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="10" fill="#f39c12">●●○ = 中等</text>
+  <text x="560" y="335" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="10" fill="#e74c3c">●○○ = 较差</text>
+</svg>

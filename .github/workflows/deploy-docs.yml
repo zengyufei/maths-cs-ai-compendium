@@ -18,18 +18,16 @@ jobs:
         with:
           python-version: "3.x"
 
-      - run: pip install "mkdocs<2" "mkdocs-material[imaging]"
+      - run: pip install "mkdocs<2" "mkdocs-material[imaging]" ghp-import
 
-      - name: Create docs directory with symlinks
+      - name: Check MCP server
         run: |
-          mkdir -p docs
-          cp README.md docs/index.md
-          ln -s ../images docs/images
-          ln -s ../javascripts docs/javascripts
-          ln -s ../stylesheets docs/stylesheets
-          find . -maxdepth 1 -type d -name 'chapter *' | while IFS= read -r dir; do
-            dir="${dir#./}"
-            ln -s "../$dir" "docs/$dir"
-          done
+          npm --prefix mcp install
+          npm --prefix mcp run check
+          npm --prefix mcp test
 
-      - run: mkdocs gh-deploy --force
+      - name: Build English and Chinese sites
+        run: node scripts/build-docs.mjs
+
+      - name: Deploy combined site
+        run: ghp-import -n -p -f site

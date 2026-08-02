@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "start": "[ -d node_modules ] || npm install --silent && tsx src/index.ts",
-    "setup": "npm install"
+    "setup": "npm install",
+    "check": "tsc --noEmit",
+    "test": "tsx --test src/content.test.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.12.0",
