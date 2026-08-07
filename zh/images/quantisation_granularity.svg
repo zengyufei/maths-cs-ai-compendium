@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 280" width="800" height="280">
+  <text x="400" y="22" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">量化粒度：逐张量、逐通道与逐组</text>
+
+  <!-- Per-tensor -->
+  <text x="130" y="52" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="11" font-weight="bold" fill="#e74c3c">逐张量</text>
+  <text x="130" y="66" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="9" fill="#e74c3c">整个矩阵共用 1 个 scale</text>
+
+  <rect x="50" y="75" width="160" height="120" rx="4" fill="#e74c3c" fill-opacity="0.12" stroke="#e74c3c" stroke-width="2"/>
+  <text x="130" y="140" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="10" fill="#e74c3c">s = 0.031</text>
+  <text x="130" y="210" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="8" fill="#666">一个离群值迫使 scale 变大</text>
+  <text x="130" y="222" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="8" fill="#666">→ 各处的分辨率都变差</text>
+
+  <!-- Outlier dot -->
+  <circle cx="180" cy="90" r="5" fill="#e74c3c" fill-opacity="0.6"/>
+  <text x="192" y="93" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="7" fill="#e74c3c">离群值！</text>
+
+  <!-- Per-channel -->
+  <text x="400" y="52" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="11" font-weight="bold" fill="#3498db">逐通道</text>
+  <text x="400" y="66" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="9" fill="#3498db">每列（输出通道）各用 1 个 scale</text>
+
+  <rect x="320" y="75" width="40" height="120" rx="2" fill="#3498db" fill-opacity="0.15" stroke="#3498db" stroke-width="1.5"/>
+  <text x="340" y="140" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="7" fill="#3498db">s₁</text>
+
+  <rect x="360" y="75" width="40" height="120" rx="2" fill="#27ae60" fill-opacity="0.15" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="380" y="140" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="7" fill="#27ae60">s₂</text>
+
+  <rect x="400" y="75" width="40" height="120" rx="2" fill="#f39c12" fill-opacity="0.15" stroke="#f39c12" stroke-width="1.5"/>
+  <text x="420" y="140" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="7" fill="#f39c12">s₃</text>
+
+  <rect x="440" y="75" width="40" height="120" rx="2" fill="#9b59b6" fill-opacity="0.15" stroke="#9b59b6" stroke-width="1.5"/>
+  <text x="460" y="140" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="7" fill="#9b59b6">s₄</text>
+
+  <text x="400" y="210" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="8" fill="#666">每个通道拥有自己的 scale</text>
+  <text x="400" y="222" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="8" fill="#666">→ 离群值只影响所在通道</text>
+
+  <!-- Per-group -->
+  <text x="660" y="52" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="11" font-weight="bold" fill="#27ae60">逐组（g=4）</text>
+  <text x="660" y="66" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="9" fill="#27ae60">每 g 个元素共用 1 个 scale</text>
+
+  <!-- 4x4 grid of groups -->
+  <rect x="580" y="75" width="40" height="28" rx="2" fill="#3498db" fill-opacity="0.15" stroke="#3498db" stroke-width="1"/>
+  <rect x="620" y="75" width="40" height="28" rx="2" fill="#e74c3c" fill-opacity="0.15" stroke="#e74c3c" stroke-width="1"/>
+  <rect x="660" y="75" width="40" height="28" rx="2" fill="#27ae60" fill-opacity="0.15" stroke="#27ae60" stroke-width="1"/>
+  <rect x="700" y="75" width="40" height="28" rx="2" fill="#f39c12" fill-opacity="0.15" stroke="#f39c12" stroke-width="1"/>
+
+  <rect x="580" y="105" width="40" height="28" rx="2" fill="#9b59b6" fill-opacity="0.15" stroke="#9b59b6" stroke-width="1"/>
+  <rect x="620" y="105" width="40" height="28" rx="2" fill="#1abc9c" fill-opacity="0.15" stroke="#1abc9c" stroke-width="1"/>
+  <rect x="660" y="105" width="40" height="28" rx="2" fill="#e67e22" fill-opacity="0.15" stroke="#e67e22" stroke-width="1"/>
+  <rect x="700" y="105" width="40" height="28" rx="2" fill="#2c3e50" fill-opacity="0.15" stroke="#2c3e50" stroke-width="1"/>
+
+  <rect x="580" y="135" width="40" height="28" rx="2" fill="#16a085" fill-opacity="0.15" stroke="#16a085" stroke-width="1"/>
+  <rect x="620" y="135" width="40" height="28" rx="2" fill="#8e44ad" fill-opacity="0.15" stroke="#8e44ad" stroke-width="1"/>
+  <rect x="660" y="135" width="40" height="28" rx="2" fill="#c0392b" fill-opacity="0.15" stroke="#c0392b" stroke-width="1"/>
+  <rect x="700" y="135" width="40" height="28" rx="2" fill="#2980b9" fill-opacity="0.15" stroke="#2980b9" stroke-width="1"/>
+
+  <rect x="580" y="165" width="40" height="28" rx="2" fill="#d35400" fill-opacity="0.15" stroke="#d35400" stroke-width="1"/>
+  <rect x="620" y="165" width="40" height="28" rx="2" fill="#27ae60" fill-opacity="0.15" stroke="#27ae60" stroke-width="1"/>
+  <rect x="660" y="165" width="40" height="28" rx="2" fill="#e74c3c" fill-opacity="0.15" stroke="#e74c3c" stroke-width="1"/>
+  <rect x="700" y="165" width="40" height="28" rx="2" fill="#3498db" fill-opacity="0.15" stroke="#3498db" stroke-width="1"/>
+
+  <text x="660" y="210" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="8" fill="#666">每个小块拥有自己的 scale</text>
+  <text x="660" y="222" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="8" fill="#666">→ 准确率最好，scale 开销更大</text>
+
+  <!-- Accuracy arrow -->
+  <line x1="100" y1="260" x2="700" y2="260" stroke="#999" stroke-width="1.5"/>
+  <polygon points="705,260 695,255 695,265" fill="#999"/>
+  <text x="400" y="276" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="10" fill="#999">准确率逐渐提高（缩放因子更多）→</text>
+</svg>

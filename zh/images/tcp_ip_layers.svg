@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 550 260" width="550" height="260">
+  <text x="275" y="22" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">TCP/IP 网络栈</text>
+
+  <!-- Application layer -->
+  <rect x="100" y="45" width="250" height="42" rx="8" fill="#9b59b6" fill-opacity="0.15" stroke="#9b59b6" stroke-width="2"/>
+  <text x="225" y="65" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="12" font-weight="bold" fill="#9b59b6">应用层</text>
+  <text x="225" y="80" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="9" fill="#9b59b6">HTTP, gRPC, DNS, SSH</text>
+  <text x="400" y="70" text-anchor="start" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="9" fill="#666">你的代码在此通信</text>
+
+  <!-- Transport layer -->
+  <rect x="100" y="95" width="250" height="42" rx="8" fill="#3498db" fill-opacity="0.15" stroke="#3498db" stroke-width="2"/>
+  <text x="225" y="115" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="12" font-weight="bold" fill="#3498db">传输层</text>
+  <text x="225" y="130" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="9" fill="#3498db">TCP（可靠）/ UDP（快速）</text>
+  <text x="400" y="120" text-anchor="start" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="9" fill="#666">端到端传递</text>
+
+  <!-- Network layer -->
+  <rect x="100" y="145" width="250" height="42" rx="8" fill="#27ae60" fill-opacity="0.15" stroke="#27ae60" stroke-width="2"/>
+  <text x="225" y="165" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="12" font-weight="bold" fill="#27ae60">网络层（IP）</text>
+  <text x="225" y="180" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="9" fill="#27ae60">路由、IP 地址</text>
+  <text x="400" y="170" text-anchor="start" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="9" fill="#666">数据包路由</text>
+
+  <!-- Link layer -->
+  <rect x="100" y="195" width="250" height="42" rx="8" fill="#e74c3c" fill-opacity="0.15" stroke="#e74c3c" stroke-width="2"/>
+  <text x="225" y="215" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="12" font-weight="bold" fill="#e74c3c">链路层</text>
+  <text x="225" y="230" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="9" fill="#e74c3c">以太网、Wi-Fi、MAC</text>
+  <text x="400" y="220" text-anchor="start" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="9" fill="#666">物理传输</text>
+
+  <text x="275" y="255" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="10" fill="#666">每层添加报头并向下传递；接收端向上剥离报头</text>
+</svg>

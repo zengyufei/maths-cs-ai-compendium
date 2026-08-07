@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 260" width="700" height="260">
+  <text x="350" y="22" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">多模态动作：为何回归平均会失败</text>
+
+  <!-- Left: true distribution -->
+  <text x="175" y="50" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="12" font-weight="bold" fill="#27ae60">真实动作分布</text>
+
+  <!-- Mode 1 (go left) -->
+  <ellipse cx="100" cy="140" rx="40" ry="30" fill="#3498db" fill-opacity="0.2" stroke="#3498db" stroke-width="1.5"/>
+  <text x="100" y="145" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="10" font-weight="bold" fill="#3498db">向左走</text>
+
+  <!-- Mode 2 (go right) -->
+  <ellipse cx="250" cy="140" rx="40" ry="30" fill="#9b59b6" fill-opacity="0.2" stroke="#9b59b6" stroke-width="1.5"/>
+  <text x="250" y="145" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="10" font-weight="bold" fill="#9b59b6">向右走</text>
+
+  <!-- Obstacle in middle -->
+  <rect x="155" y="115" width="40" height="50" rx="5" fill="#e74c3c" fill-opacity="0.3" stroke="#e74c3c" stroke-width="1.5"/>
+  <text x="175" y="143" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="8" font-weight="bold" fill="#e74c3c">障碍物</text>
+
+  <text x="175" y="210" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="9" fill="#666">绕开障碍物的两条有效路径</text>
+
+  <!-- Divider -->
+  <line x1="350" y1="45" x2="350" y2="245" stroke="#ccc" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- Right: regression vs diffusion -->
+  <text x="525" y="50" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="12" font-weight="bold" fill="#e74c3c">回归预测</text>
+
+  <!-- Obstacle in middle -->
+  <rect x="505" y="115" width="40" height="50" rx="5" fill="#e74c3c" fill-opacity="0.3" stroke="#e74c3c" stroke-width="1.5"/>
+  <text x="525" y="143" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="8" font-weight="bold" fill="#e74c3c">障碍物</text>
+
+  <!-- Mean prediction - right in the obstacle! -->
+  <line x1="525" y1="90" x2="525" y2="108" stroke="#e74c3c" stroke-width="3"/>
+  <polygon points="525,115 518,105 532,105" fill="#e74c3c"/>
+  <text x="525" y="83" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="10" font-weight="bold" fill="#e74c3c">均值 = 碰撞！</text>
+
+  <!-- Ghost of the two modes -->
+  <ellipse cx="450" cy="140" rx="25" ry="20" fill="none" stroke="#ccc" stroke-width="1" stroke-dasharray="3,2"/>
+  <ellipse cx="600" cy="140" rx="25" ry="20" fill="none" stroke="#ccc" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <text x="525" y="195" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="9" fill="#e74c3c">回归平均两个模式</text>
+  <text x="525" y="210" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="9" fill="#e74c3c">→ 预测直冲障碍物</text>
+
+  <!-- Bottom note -->
+  <text x="350" y="248" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="10" fill="#666">扩散 / 流匹配动作头无需平均即可表示两个模式</text>
+</svg>

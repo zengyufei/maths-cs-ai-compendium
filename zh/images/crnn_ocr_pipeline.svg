@@ -1,0 +1,68 @@
+<svg width="720" height="220" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="ocr-arrow" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto">
+      <polygon points="0 0, 7 2.5, 0 5" fill="#555"/>
+    </marker>
+  </defs>
+  <text x="360" y="22" fill="#333" font-size="14" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-weight="bold" text-anchor="middle">CRNN 文本识别流程</text>
+
+  <!-- Input image -->
+  <rect x="20" y="50" width="100" height="50" rx="6" fill="#f5f5f5" stroke="#333" stroke-width="1.5"/>
+  <text x="70" y="70" fill="#333" font-size="14" text-anchor="middle" font-style="italic" font-weight="bold">Hello</text>
+  <text x="70" y="86" fill="#999" font-size="8" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" text-anchor="middle">（文本图像）</text>
+  <text x="70" y="118" fill="#666" font-size="9" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" text-anchor="middle" font-weight="bold">输入</text>
+
+  <line x1="120" y1="75" x2="150" y2="75" stroke="#555" stroke-width="1.5" marker-end="url(#ocr-arrow)"/>
+
+  <!-- CNN feature extractor -->
+  <rect x="155" y="40" width="100" height="70" rx="8" fill="#3498db" opacity="0.12" stroke="#3498db" stroke-width="2"/>
+  <text x="205" y="68" fill="#3498db" font-size="11" text-anchor="middle" font-weight="bold">CNN</text>
+  <text x="205" y="83" fill="#3498db" font-size="9" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" text-anchor="middle">提取视觉</text>
+  <text x="205" y="95" fill="#3498db" font-size="9" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" text-anchor="middle">特征</text>
+  <text x="205" y="128" fill="#3498db" font-size="9" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" text-anchor="middle">空间特征</text>
+
+  <line x1="255" y1="75" x2="285" y2="75" stroke="#555" stroke-width="1.5" marker-end="url(#ocr-arrow)"/>
+
+  <!-- Feature columns -->
+  <g>
+    <rect x="290" y="45" width="8" height="60" rx="2" fill="#f39c12" opacity="0.3" stroke="#f39c12" stroke-width="1"/>
+    <rect x="302" y="45" width="8" height="60" rx="2" fill="#f39c12" opacity="0.3" stroke="#f39c12" stroke-width="1"/>
+    <rect x="314" y="45" width="8" height="60" rx="2" fill="#f39c12" opacity="0.3" stroke="#f39c12" stroke-width="1"/>
+    <rect x="326" y="45" width="8" height="60" rx="2" fill="#f39c12" opacity="0.3" stroke="#f39c12" stroke-width="1"/>
+    <rect x="338" y="45" width="8" height="60" rx="2" fill="#f39c12" opacity="0.3" stroke="#f39c12" stroke-width="1"/>
+    <rect x="350" y="45" width="8" height="60" rx="2" fill="#f39c12" opacity="0.3" stroke="#f39c12" stroke-width="1"/>
+    <rect x="362" y="45" width="8" height="60" rx="2" fill="#f39c12" opacity="0.3" stroke="#f39c12" stroke-width="1"/>
+  </g>
+  <text x="330" y="128" fill="#f39c12" font-size="9" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" text-anchor="middle">列切片</text>
+
+  <line x1="375" y1="75" x2="405" y2="75" stroke="#555" stroke-width="1.5" marker-end="url(#ocr-arrow)"/>
+
+  <!-- BiLSTM -->
+  <rect x="410" y="40" width="100" height="70" rx="8" fill="#e74c3c" opacity="0.12" stroke="#e74c3c" stroke-width="2"/>
+  <text x="460" y="65" fill="#e74c3c" font-size="11" text-anchor="middle" font-weight="bold">BiLSTM</text>
+  <text x="460" y="80" fill="#e74c3c" font-size="9" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" text-anchor="middle">序列</text>
+  <text x="460" y="92" fill="#e74c3c" font-size="9" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" text-anchor="middle">建模</text>
+  <text x="460" y="128" fill="#e74c3c" font-size="9" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" text-anchor="middle">感知语境</text>
+
+  <line x1="510" y1="75" x2="540" y2="75" stroke="#555" stroke-width="1.5" marker-end="url(#ocr-arrow)"/>
+
+  <!-- CTC Decoder -->
+  <rect x="545" y="40" width="80" height="70" rx="8" fill="#9b59b6" opacity="0.12" stroke="#9b59b6" stroke-width="2"/>
+  <text x="585" y="65" fill="#9b59b6" font-size="11" text-anchor="middle" font-weight="bold">CTC</text>
+  <text x="585" y="80" fill="#9b59b6" font-size="9" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" text-anchor="middle">解码</text>
+  <text x="585" y="92" fill="#9b59b6" font-size="9" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" text-anchor="middle">对齐</text>
+  <text x="585" y="128" fill="#9b59b6" font-size="9" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" text-anchor="middle">无需分割</text>
+
+  <line x1="625" y1="75" x2="650" y2="75" stroke="#555" stroke-width="1.5" marker-end="url(#ocr-arrow)"/>
+
+  <!-- Output text -->
+  <rect x="655" y="50" width="55" height="50" rx="6" fill="#27ae60" opacity="0.15" stroke="#27ae60" stroke-width="2"/>
+  <text x="682" y="80" fill="#27ae60" font-size="14" text-anchor="middle" font-weight="bold">Hello</text>
+  <text x="682" y="118" fill="#27ae60" font-size="9" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" text-anchor="middle" font-weight="bold">输出</text>
+
+  <!-- CTC detail -->
+  <rect x="140" y="148" width="440" height="55" rx="8" fill="#f5f5f5" stroke="#ddd" stroke-width="1"/>
+  <text x="360" y="167" fill="#9b59b6" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="10" text-anchor="middle" font-weight="bold">CTC：连接时序分类</text>
+  <text x="360" y="183" fill="#555" font-size="10" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" text-anchor="middle">处理多对一对齐：“HH-ee-ll-ll-oo” → “Hello”</text>
+  <text x="360" y="197" fill="#555" font-size="9" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" text-anchor="middle">无需预分割训练数据。空白词元（–）分隔重复字符。</text>
+</svg>

@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 280" width="750" height="280">
+  <defs>
+    <marker id="ocl-arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#666"/>
+    </marker>
+  </defs>
+  <text x="375" y="22" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">开环与闭环评估</text>
+
+  <!-- Open-loop -->
+  <text x="188" y="52" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="12" font-weight="bold" fill="#3498db">开环</text>
+
+  <rect x="40" y="65" width="100" height="45" rx="8" fill="#3498db" fill-opacity="0.12" stroke="#3498db" stroke-width="1.5"/>
+  <text x="90" y="84" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="10" font-weight="bold" fill="#3498db">记录的</text>
+  <text x="90" y="99" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="10" fill="#3498db">日志数据</text>
+
+  <line x1="140" y1="87" x2="168" y2="87" stroke="#666" stroke-width="1.5" marker-end="url(#ocl-arr)"/>
+
+  <rect x="176" y="65" width="80" height="45" rx="8" fill="#f39c12" fill-opacity="0.12" stroke="#f39c12" stroke-width="1.5"/>
+  <text x="216" y="84" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="10" font-weight="bold" fill="#f39c12">模型</text>
+  <text x="216" y="99" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="10" fill="#f39c12">预测</text>
+
+  <line x1="256" y1="87" x2="284" y2="87" stroke="#666" stroke-width="1.5" marker-end="url(#ocl-arr)"/>
+
+  <rect x="292" y="65" width="80" height="45" rx="8" fill="#27ae60" fill-opacity="0.12" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="332" y="84" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="10" font-weight="bold" fill="#27ae60">与人类</text>
+  <text x="332" y="99" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="10" fill="#27ae60">进行比较</text>
+
+  <text x="188" y="133" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="9" fill="#999">仅回放，模型动作不会</text>
+  <text x="188" y="146" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="9" fill="#999">改变场景</text>
+
+  <!-- Divider -->
+  <line x1="375" y1="42" x2="375" y2="270" stroke="#ccc" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- Closed-loop -->
+  <text x="562" y="52" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="12" font-weight="bold" fill="#e74c3c">闭环</text>
+
+  <rect x="420" y="65" width="80" height="45" rx="8" fill="#3498db" fill-opacity="0.12" stroke="#3498db" stroke-width="1.5"/>
+  <text x="460" y="84" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="10" font-weight="bold" fill="#3498db">模拟器</text>
+  <text x="460" y="99" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="10" fill="#3498db">场景</text>
+
+  <line x1="500" y1="87" x2="528" y2="87" stroke="#666" stroke-width="1.5" marker-end="url(#ocl-arr)"/>
+
+  <rect x="536" y="65" width="80" height="45" rx="8" fill="#f39c12" fill-opacity="0.12" stroke="#f39c12" stroke-width="1.5"/>
+  <text x="576" y="84" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="10" font-weight="bold" fill="#f39c12">模型</text>
+  <text x="576" y="99" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="10" fill="#f39c12">行动</text>
+
+  <line x1="616" y1="87" x2="644" y2="87" stroke="#666" stroke-width="1.5" marker-end="url(#ocl-arr)"/>
+
+  <rect x="652" y="65" width="80" height="45" rx="8" fill="#e74c3c" fill-opacity="0.12" stroke="#e74c3c" stroke-width="1.5"/>
+  <text x="692" y="84" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="10" font-weight="bold" fill="#e74c3c">评估</text>
+  <text x="692" y="99" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="10" fill="#e74c3c">安全性</text>
+
+  <!-- Feedback loop -->
+  <path d="M 576,110 L 576,145 L 460,145 L 460,110" fill="none" stroke="#9b59b6" stroke-width="2" marker-end="url(#ocl-arr)"/>
+  <text x="518" y="160" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="9" font-weight="bold" fill="#9b59b6">动作会改变场景</text>
+
+  <text x="562" y="192" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="9" fill="#999">模型动作影响仿真状态</text>
+  <text x="562" y="205" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="9" fill="#999">→ 测试反应行为</text>
+
+  <!-- Verdict -->
+  <rect x="60" y="230" width="260" height="30" rx="6" fill="#f39c12" fill-opacity="0.1" stroke="#f39c12" stroke-width="1"/>
+  <text x="190" y="250" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="10" fill="#f39c12">易于设置，但有误导性</text>
+  <rect x="430" y="230" width="260" height="30" rx="6" fill="#27ae60" fill-opacity="0.1" stroke="#27ae60" stroke-width="1"/>
+  <text x="560" y="250" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="10" fill="#27ae60">成本高，但意义大得多</text>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 280" width="600" height="280">
+  <text x="300" y="22" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">内存布局：栈与堆</text>
+  <rect x="150" y="40" width="300" height="210" rx="4" fill="#f5f5f5" stroke="#999" stroke-width="1"/>
+  <text x="140" y="50" text-anchor="end" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="8" fill="#999">高地址</text>
+  <rect x="155" y="45" width="290" height="60" rx="3" fill="#3498db" fill-opacity="0.15" stroke="#3498db" stroke-width="1.5"/>
+  <text x="300" y="68" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="12" font-weight="bold" fill="#3498db">栈</text>
+  <text x="300" y="84" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="9" fill="#3498db">局部变量、调用帧、返回地址</text>
+  <text x="460" y="90" text-anchor="start" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="9" fill="#3498db">↓ 向下增长</text>
+  <rect x="155" y="110" width="290" height="40" rx="0" fill="white" stroke="none"/>
+  <text x="300" y="135" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="10" fill="#ccc">← 空闲空间 →</text>
+  <rect x="155" y="155" width="290" height="55" rx="3" fill="#27ae60" fill-opacity="0.15" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="300" y="178" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="12" font-weight="bold" fill="#27ae60">堆</text>
+  <text x="300" y="195" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="9" fill="#27ae60">malloc、new、动态对象</text>
+  <text x="460" y="168" text-anchor="start" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="9" fill="#27ae60">↑ 向上增长</text>
+  <rect x="155" y="215" width="145" height="30" rx="3" fill="#f39c12" fill-opacity="0.15" stroke="#f39c12" stroke-width="1"/>
+  <text x="227" y="235" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="9" font-weight="bold" fill="#f39c12">数据（全局变量）</text>
+  <rect x="305" y="215" width="140" height="30" rx="3" fill="#9b59b6" fill-opacity="0.15" stroke="#9b59b6" stroke-width="1"/>
+  <text x="375" y="235" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="9" font-weight="bold" fill="#9b59b6">代码（文本）</text>
+  <text x="140" y="248" text-anchor="end" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="8" fill="#999">低地址</text>
+  <text x="80" y="270" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="9" fill="#3498db">栈：快、自动释放、大小固定</text>
+  <text x="420" y="270" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="9" fill="#27ae60">堆：较慢、手动/GC、大小灵活</text>
+</svg>
