@@ -1,0 +1,6008 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="一本从基础出发、重视直觉的数学、计算机科学与人工智能开放教材。">
+      
+      
+        <meta name="author" content="Henry Ndubuaku">
+      
+      
+        <link rel="canonical" href="https://zengyufei.github.io/maths-cs-ai-compendium/zh/chapter%2011%20-%20autonomous%20systems/02.%20robot%20learning/">
+      
+      
+        <link rel="prev" href="../01.%20perception/">
+      
+      
+        <link rel="next" href="../03.%20vision-language-action%20models/">
+      
+      
+        
+          <link rel="alternate" href="https://zengyufei.github.io/maths-cs-ai-compendium/" hreflang="en">
+        
+          <link rel="alternate" href="https://zengyufei.github.io/maths-cs-ai-compendium/zh/" hreflang="zh">
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>机器人学习 - 数学、计算机与人工智能教程</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/pyodide-runner.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="slate" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="数学、计算机与人工智能教程" class="md-header__button md-logo" aria-label="数学、计算机与人工智能教程" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            数学、计算机与人工智能教程
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              机器人学习
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="slate" data-md-color-accent="indigo"  aria-label="切换至深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换至深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="slate" data-md-color-accent="indigo"  aria-label="切换至浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="选择当前语言">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="https://zengyufei.github.io/maths-cs-ai-compendium/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="https://zengyufei.github.io/maths-cs-ai-compendium/zh/" hreflang="zh" class="md-select__link">
+              简体中文
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/HenryNdubuaku/maths-cs-ai-compendium" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    HenryNdubuaku/maths-cs-ai-compendium
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2001%20-%20vectors/01.%20vector%20spaces/" class="md-tabs__link">
+          
+  
+  
+  向量
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2002%20-%20matrices/01.%20matrix%20properties/" class="md-tabs__link">
+          
+  
+  
+  矩阵
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2003%20-%20calculus/01.%20differential%20calculus/" class="md-tabs__link">
+          
+  
+  
+  微积分
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2004%20-%20statistics/01.%20fundamentals/" class="md-tabs__link">
+          
+  
+  
+  统计学
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2005%20-%20probability/01.%20counting/" class="md-tabs__link">
+          
+  
+  
+  概率论
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2006%20-%20machine%20learning/01.%20classical%20machine%20learning/" class="md-tabs__link">
+          
+  
+  
+  机器学习
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2007%20-%20computational%20linguistics/01.%20linguistic%20foundations/" class="md-tabs__link">
+          
+  
+  
+  计算语言学
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2008%20-%20computer%20vision/01.%20image%20fundamentals/" class="md-tabs__link">
+          
+  
+  
+  计算机视觉
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2009%20-%20audio%20and%20speech/01.%20digital%20signal%20processing/" class="md-tabs__link">
+          
+  
+  
+  音频与语音
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2010%20-%20multimodal%20learning/01.%20multimodal%20representations/" class="md-tabs__link">
+          
+  
+  
+  多模态学习
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../01.%20perception/" class="md-tabs__link">
+          
+  
+  
+  自主系统
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2012%20-%20graph%20neural%20networks/01.%20geometric%20deep%20learning/" class="md-tabs__link">
+          
+  
+  
+  图神经网络
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2013%20-%20computing%20and%20OS/01.%20discrete%20maths/" class="md-tabs__link">
+          
+  
+  
+  计算与操作系统
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2014%20-%20data%20structures%20and%20algorithms/00.%20foundations/" class="md-tabs__link">
+          
+  
+  
+  数据结构与算法
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2015%20-%20production%20software%20engineering/01.%20linux%20and%20CMD/" class="md-tabs__link">
+          
+  
+  
+  生产软件工程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2016%20-%20SIMD%20and%20GPU%20programming/00.%20why%20C%2B%2B%20and%20how%20ML%20frameworks%20work/" class="md-tabs__link">
+          
+  
+  
+  SIMD 与 GPU 编程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2017%20-%20AI%20inference/01.%20quantisation/" class="md-tabs__link">
+          
+  
+  
+  AI 推理
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2018%20-%20ML%20systems%20design/01.%20systems%20design%20fundamentals/" class="md-tabs__link">
+          
+  
+  
+  ML 系统设计
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2019%20-%20applied%20AI/01.%20AI%20for%20finance/" class="md-tabs__link">
+          
+  
+  
+  应用 AI
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2020%20-%20bleeding%20edge%20AI/01.%20quantum%20machine%20learning/" class="md-tabs__link">
+          
+  
+  
+  前沿 AI
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="数学、计算机与人工智能教程" class="md-nav__button md-logo" aria-label="数学、计算机与人工智能教程" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    数学、计算机与人工智能教程
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/HenryNdubuaku/maths-cs-ai-compendium" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    HenryNdubuaku/maths-cs-ai-compendium
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    向量
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    向量
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2001%20-%20vectors/01.%20vector%20spaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    向量空间
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2001%20-%20vectors/02.%20vector%20properties/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    向量性质
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2001%20-%20vectors/03.%20norms%20and%20metrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    范数与度量
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2001%20-%20vectors/04.%20products/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    向量积
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2001%20-%20vectors/05.%20basis%20and%20duality/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基与对偶
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    矩阵
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    矩阵
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2002%20-%20matrices/01.%20matrix%20properties/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    矩阵性质
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2002%20-%20matrices/02.%20matrix%20types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    矩阵类型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2002%20-%20matrices/03.%20operations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    矩阵运算
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2002%20-%20matrices/04.%20linear%20transformations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    线性变换
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2002%20-%20matrices/05.%20decompositions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    矩阵分解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    微积分
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    微积分
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2003%20-%20calculus/01.%20differential%20calculus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    微分学
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2003%20-%20calculus/02.%20integral%20calculus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    积分学
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2003%20-%20calculus/03.%20multivariate%20calculus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    多元微积分
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2003%20-%20calculus/04.%20function%20approximation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    函数逼近
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2003%20-%20calculus/05.%20optimisation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    优化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    统计学
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    统计学
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2004%20-%20statistics/01.%20fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    统计学基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2004%20-%20statistics/02.%20measures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    统计量
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2004%20-%20statistics/03.%20sampling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    抽样
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2004%20-%20statistics/04.%20hypothesis%20testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    假设检验
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2004%20-%20statistics/05.%20inference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    统计推断
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概率论
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    概率论
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2005%20-%20probability/01.%20counting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计数
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2005%20-%20probability/02.%20probability%20concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概率概念
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2005%20-%20probability/03.%20distributions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概率分布
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2005%20-%20probability/04.%20bayesian/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    贝叶斯方法与序列模型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2005%20-%20probability/05.%20information%20theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    信息论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    机器学习
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    机器学习
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2006%20-%20machine%20learning/01.%20classical%20machine%20learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    经典机器学习
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2006%20-%20machine%20learning/02.%20gradient%20machine%20learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基于梯度的机器学习
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2006%20-%20machine%20learning/03.%20deep%20learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    深度学习
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2006%20-%20machine%20learning/04.%20reinforcement%20learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    强化学习
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2006%20-%20machine%20learning/05.%20distributed%20deep%20learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    分布式深度学习
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算语言学
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    计算语言学
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2007%20-%20computational%20linguistics/01.%20linguistic%20foundations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    语言学基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2007%20-%20computational%20linguistics/02.%20text%20processing%20and%20classic%20NLP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文本处理与经典自然语言处理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2007%20-%20computational%20linguistics/03.%20embeddings%20and%20sequence%20models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    词嵌入与序列模型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2007%20-%20computational%20linguistics/04.%20transformers%20and%20language%20models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformer 与语言模型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2007%20-%20computational%20linguistics/05.%20advanced%20text%20generation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高级文本生成
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机视觉
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    计算机视觉
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2008%20-%20computer%20vision/01.%20image%20fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    图像基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2008%20-%20computer%20vision/02.%20convolutional%20networks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    卷积神经网络
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2008%20-%20computer%20vision/03.%20object%20detection%20and%20segmentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    目标检测与分割
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2008%20-%20computer%20vision/04.%20vision%20transformers%20and%20generation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    视觉 Transformer 与生成
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2008%20-%20computer%20vision/05.%20video%20and%203D%20vision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    视频与三维视觉
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    音频与语音
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    音频与语音
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2009%20-%20audio%20and%20speech/01.%20digital%20signal%20processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数字信号处理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2009%20-%20audio%20and%20speech/02.%20automatic%20speech%20recognition/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    自动语音识别
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2009%20-%20audio%20and%20speech/03.%20text%20to%20speech%20and%20voice/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文本转语音与声音
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2009%20-%20audio%20and%20speech/04.%20speaker%20and%20audio%20analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    说话人和音频分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2009%20-%20audio%20and%20speech/05.%20source%20separation%20and%20noise/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    源分离与降噪
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    多模态学习
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    多模态学习
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2010%20-%20multimodal%20learning/01.%20multimodal%20representations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    多模态表示
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2010%20-%20multimodal%20learning/02.%20vision%20language%20models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    视觉语言模型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2010%20-%20multimodal%20learning/03.%20image%20and%20video%20tokenisation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    图像与视频词元化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2010%20-%20multimodal%20learning/04.%20cross-modal%20generation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    跨模态生成
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2010%20-%20multimodal%20learning/05.%20unified%20multimodal%20architectures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    统一多模态架构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    自主系统
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    自主系统
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01.%20perception/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    感知
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    机器人学习
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    机器人学习
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        机器人运动学
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        动力学与控制
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        模仿学习
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        仿真到真实迁移
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        面向机器人的世界模型
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        操作
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        运动
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        机器人学习中的安全
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#colab-notebook" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        编码练习（使用 CoLab 或 notebook）
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03.%20vision-language-action%20models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    视觉-语言-动作模型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04.%20self-driving/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    自动驾驶
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05.%20space%20and%20extreme%20robotics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    太空与极端环境机器人
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    图神经网络
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    图神经网络
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2012%20-%20graph%20neural%20networks/01.%20geometric%20deep%20learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    几何深度学习
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2012%20-%20graph%20neural%20networks/02.%20graph%20theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    图论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2012%20-%20graph%20neural%20networks/03.%20graph%20neural%20networks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    图神经网络
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2012%20-%20graph%20neural%20networks/04.%20graph%20attention%20networks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    图注意力网络
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2012%20-%20graph%20neural%20networks/05.%203d%20graph%20networks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    三维图网络
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算与操作系统
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    计算与操作系统
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2013%20-%20computing%20and%20OS/01.%20discrete%20maths/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    离散数学
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2013%20-%20computing%20and%20OS/02.%20computer%20architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机体系结构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2013%20-%20computing%20and%20OS/03.%20operating%20systems/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    操作系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2013%20-%20computing%20and%20OS/04.%20concurrency%20and%20parallelism/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    并发与并行
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2013%20-%20computing%20and%20OS/05.%20programming%20languages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编程语言
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据结构与算法
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_15">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    数据结构与算法
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2014%20-%20data%20structures%20and%20algorithms/00.%20foundations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基础：大 O、递归、回溯与动态规划
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2014%20-%20data%20structures%20and%20algorithms/01.%20arrays%20and%20hashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数组与哈希
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2014%20-%20data%20structures%20and%20algorithms/02.%20linked%20lists%2C%20stacks%2C%20and%20queues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    链表、栈与队列
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2014%20-%20data%20structures%20and%20algorithms/03.%20trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    树
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2014%20-%20data%20structures%20and%20algorithms/04.%20graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2014%20-%20data%20structures%20and%20algorithms/05.%20sorting%20and%20search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    排序、搜索与算法设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_16" >
+        
+          
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    生产软件工程
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    生产软件工程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2015%20-%20production%20software%20engineering/01.%20linux%20and%20CMD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux 与命令行
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2015%20-%20production%20software%20engineering/02.%20git%20and%20repository%20management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git 与仓库管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2015%20-%20production%20software%20engineering/03.%20codebase%20design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    代码库设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2015%20-%20production%20software%20engineering/04.%20testing%20and%20quality%20assurance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    测试与质量保证
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2015%20-%20production%20software%20engineering/05.%20deployment%20and%20devops/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    部署与 DevOps
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_17" >
+        
+          
+          <label class="md-nav__link" for="__nav_17" id="__nav_17_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SIMD 与 GPU 编程
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_17_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_17">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SIMD 与 GPU 编程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2016%20-%20SIMD%20and%20GPU%20programming/00.%20why%20C%2B%2B%20and%20how%20ML%20frameworks%20work/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    为什么使用 C++，机器学习框架如何工作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2016%20-%20SIMD%20and%20GPU%20programming/01.%20hardware%20fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    硬件基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2016%20-%20SIMD%20and%20GPU%20programming/02.%20ARM%20and%20NEON/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ARM 与 NEON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2016%20-%20SIMD%20and%20GPU%20programming/03.%20x86%20and%20AVX/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    x86 与 AVX
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2016%20-%20SIMD%20and%20GPU%20programming/04.%20GPU%20architecture%20and%20CUDA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPU 架构与 CUDA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2016%20-%20SIMD%20and%20GPU%20programming/05.%20triton%2C%20TPUs%20and%20pallax/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Triton、TPU 与 Pallas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2016%20-%20SIMD%20and%20GPU%20programming/06.%20RISC-V%20and%20embedded%20systems/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RISC-V 与嵌入式系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2016%20-%20SIMD%20and%20GPU%20programming/07.%20vulkan%20compute%20and%20cross-platform%20GPU/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vulkan Compute 与跨平台 GPU
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_18" >
+        
+          
+          <label class="md-nav__link" for="__nav_18" id="__nav_18_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI 推理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_18_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_18">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AI 推理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2017%20-%20AI%20inference/01.%20quantisation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    量化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2017%20-%20AI%20inference/02.%20efficient%20architectures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高效架构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2017%20-%20AI%20inference/03.%20serving%20and%20batching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    服务与批处理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2017%20-%20AI%20inference/04.%20edge%20inference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    边缘推理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2017%20-%20AI%20inference/05.%20scaling%20and%20deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    扩展与部署
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_19" >
+        
+          
+          <label class="md-nav__link" for="__nav_19" id="__nav_19_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML 系统设计
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_19_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_19">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ML 系统设计
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2018%20-%20ML%20systems%20design/01.%20systems%20design%20fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统设计基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2018%20-%20ML%20systems%20design/02.%20cloud%20computing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    云计算
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2018%20-%20ML%20systems%20design/03.%20large%20scale%20infrastructure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    大规模基础设施
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2018%20-%20ML%20systems%20design/04.%20ML%20systems%20design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML 系统设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2018%20-%20ML%20systems%20design/05.%20ML%20design%20examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML 设计案例
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_20" >
+        
+          
+          <label class="md-nav__link" for="__nav_20" id="__nav_20_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    应用 AI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_20_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_20">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    应用 AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2019%20-%20applied%20AI/01.%20AI%20for%20finance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    金融 AI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2019%20-%20applied%20AI/02.%20protein%20design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    生物学 AI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2019%20-%20applied%20AI/03.%20drug%20discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    药物发现
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2019%20-%20applied%20AI/04.%20agentic%20systems/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    智能体系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2019%20-%20applied%20AI/05.%20healthcare/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    医疗健康
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_21" >
+        
+          
+          <label class="md-nav__link" for="__nav_21" id="__nav_21_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    前沿 AI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_21_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_21">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    前沿 AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2020%20-%20bleeding%20edge%20AI/01.%20quantum%20machine%20learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    量子机器学习
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2020%20-%20bleeding%20edge%20AI/02.%20neuromorphic%20computing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    神经形态计算
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2020%20-%20bleeding%20edge%20AI/03.%20datacentres%20in%20space/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    太空数据中心
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2020%20-%20bleeding%20edge%20AI/04.%20decentralised%20AI/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    去中心化 AI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2020%20-%20bleeding%20edge%20AI/05.%20brain%20machine%20interfaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    脑机接口
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        机器人运动学
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        动力学与控制
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        模仿学习
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        仿真到真实迁移
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        面向机器人的世界模型
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        操作
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        运动
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        机器人学习中的安全
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#colab-notebook" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        编码练习（使用 CoLab 或 notebook）
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="_1">机器人学习<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p><em>机器人学习弥合算法与物理行动之间的鸿沟。本节涵盖运动学、动力学、经典控制、模仿学习、仿真到真实迁移、操作、运动和安全，这些技术赋予机器人移动、抓取、行走并与真实世界交互的能力。</em></p>
+<ul>
+<li>前几章中，我们学习了如何感知世界，第 8 章和本章第 1 节，以及如何从数据学习，第 6 章。但感知和学习还不够。机器人必须<strong>行动（act）</strong>：移动手臂抓住杯子、走过不平地面、在仓库中导航。这正是机器人学习的用武之地。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>看懂环境和学到规律还不够，机器人最终要把判断变成可靠动作。机器人学习研究的就是怎样让它动得对。</p>
+</div>
+<ul>
+<li>核心挑战在于物理世界连续、高维、接触丰富且不容失误。图像识别中的分类错误只是标签错误；机器人学中的控制错误可能是机器人损坏或物体掉落。代价完全不同。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>机器人犯错会真的撞、摔或伤人，不能像网页程序那样出错后重试。因此它必须同时追求效果、稳定和安全。</p>
+</div>
+<h2 id="_2">机器人运动学<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>运动学（kinematics）</strong>描述不考虑力的运动几何。机械臂是由关节连接的刚性连杆链。每个关节有一个自由度，DoF：要么旋转，旋转关节，要么滑动，移动关节。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>运动学先不问马达需要多大力，只研究关节怎样转或滑时，机械臂各部分会出现在什么位置。</p>
+</div>
+<ul>
+<li>机器人的<strong>构型（configuration）</strong>是所有关节角度，或位移，的集合 <span class="arithmatex">\(\mathbf{q} = [q_1, q_2, \ldots, q_n]^T\)</span>。这个向量位于<strong>关节空间（joint space）</strong>，或构型空间：一个每条轴对应一个关节的 <span class="arithmatex">\(n\)</span> 维空间。六自由度机械臂具有六维构型空间。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>构型就是机器人此刻每个关节分别摆在什么位置。把所有关节数值放进一个向量，便能用一个点描述整台机械臂的姿势。</p>
+</div>
+<p><img alt="双连杆机械臂：关节角 q1 和 q2 通过正向运动学确定末端执行器位置" src="../../images/robot_arm_fk.svg" /></p>
+<ul>
+<li><strong>正向运动学（forward kinematics，FK）</strong>根据关节角度计算末端执行器，即“手”，的位置和姿态。这是函数 <span class="arithmatex">\(\mathbf{x} = f(\mathbf{q})\)</span>，将关节空间映射到<strong>任务空间（task space）</strong>，即末端执行器的三维位置和姿态，也称笛卡尔空间。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>正向运动学的方向是“已知每个关节怎么摆，算手会到哪里”。它像把每段机械臂依次拼起来算最终手的位置。</p>
+</div>
+<ul>
+<li>每个关节由 <span class="arithmatex">\(4 \times 4\)</span> 齐次变换矩阵描述，回顾第 2 章仿射变换。<strong>Denavit-Hartenberg（DH）约定</strong>以四个数参数化每个关节：连杆长度 <span class="arithmatex">\(a\)</span>、连杆扭角 <span class="arithmatex">\(\alpha\)</span>、连杆偏距 <span class="arithmatex">\(d\)</span> 和关节角 <span class="arithmatex">\(\theta\)</span>。关节 <span class="arithmatex">\(i\)</span> 的变换为：</li>
+</ul>
+<div class="arithmatex">\[T_i = \begin{bmatrix} \cos\theta_i &amp; -\sin\theta_i \cos\alpha_i &amp; \sin\theta_i \sin\alpha_i &amp; a_i \cos\theta_i \\ \sin\theta_i &amp; \cos\theta_i \cos\alpha_i &amp; -\cos\theta_i \sin\alpha_i &amp; a_i \sin\theta_i \\ 0 &amp; \sin\alpha_i &amp; \cos\alpha_i &amp; d_i \\ 0 &amp; 0 &amp; 0 &amp; 1 \end{bmatrix}\]</div>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>DH 约定用四个参数把每个关节的长度、偏移和转角统一写进矩阵，方便用同一套规则描述不同机械臂。</p>
+</div>
+<ul>
+<li>完整的正向运动学是全部关节变换的乘积：<span class="arithmatex">\(T_{0 \to n} = T_1 T_2 \cdots T_n\)</span>。这就是将变换链式相乘的矩阵乘法，第 2 章：依次应用每个关节的变换，将坐标系从基座旋转、平移到末端执行器。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>把每一节的变换矩阵按顺序相乘，就能从底座一路算到手的位置和朝向。</p>
+</div>
+<ul>
+<li><strong>逆运动学（inverse kinematics，IK）</strong>是反向问题：给定期望末端执行器位姿 <span class="arithmatex">\(\mathbf{x}^*\)</span>，寻找关节角 <span class="arithmatex">\(\mathbf{q}\)</span>，使 <span class="arithmatex">\(f(\mathbf{q}) = \mathbf{x}^*\)</span>。它困难得多，因为：</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>逆运动学问的是“手想去这里，关节该怎么摆”。方向反过来后，答案可能不止一个，也可能根本够不着。</p>
+<ul>
+<li>
+<p>映射是非线性的，涉及正弦和余弦。</p>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>关节转动带来三角函数，不能像普通线性方程那样一次消元求解。</p>
+</div>
+</li>
+<li>
+<p>可能有多个解，不同机械臂构型到达同一点。</p>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>手到同一个位置时，手肘可以朝上也可以朝下，所以系统还要按避障、舒适或能耗选择一个解。</p>
+</div>
+</li>
+<li>
+<p>也可能无解，目标超出可达范围。</p>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>目标太远、角度受限或会碰撞时，数学上就没有可执行的关节配置。</p>
+</div>
+</li>
+</ul>
+</div>
+<ul>
+<li>解析解只对特定机器人几何存在。对于一般机器人，IK 使用<strong>雅可比矩阵（Jacobian）</strong>迭代求解。雅可比矩阵 <span class="arithmatex">\(J(\mathbf{q})\)</span> 将关节角的微小变化关联到末端执行器位置的微小变化，回顾第 3 章雅可比矩阵：</li>
+</ul>
+<div class="arithmatex">\[\dot{\mathbf{x}} = J(\mathbf{q}) \dot{\mathbf{q}}\]</div>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>雅可比矩阵像机械臂当前姿势下的局部说明书：每个关节稍微动一点，手会往哪些方向移动。</p>
+</div>
+<ul>
+<li>要使末端执行器移动微小量 <span class="arithmatex">\(\Delta \mathbf{x}\)</span>，需要 <span class="arithmatex">\(\Delta \mathbf{q} = J^{-1} \Delta \mathbf{x}\)</span>，或使用伪逆 <span class="arithmatex">\(J^+ \Delta \mathbf{x}\)</span>；当 <span class="arithmatex">\(J\)</span> 非方阵时使用后者。反复迭代直到末端执行器到达目标；本质上是将第 3 章牛顿法应用于运动学方程。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>IK 通常反复按这个局部说明做小修正，直到手逐渐靠近目标。</p>
+</div>
+<ul>
+<li>在<strong>奇异位形（singularities）</strong>附近，雅可比矩阵失去秩，某些列变得线性相关，见第 2 章。物理上这意味着机器人失去一个自由度：无论关节移动多快，末端执行器也无法向某些方向移动。伪逆在奇异位形附近会发散，因而改用阻尼最小二乘法，即添加正则化项 <span class="arithmatex">\(\lambda^2 I\)</span>：</li>
+</ul>
+<div class="arithmatex">\[\Delta \mathbf{q} = J^T(JJ^T + \lambda^2 I)^{-1} \Delta \mathbf{x}\]</div>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>奇异位形像手臂完全伸直时，有些方向已经很难再微调。阻尼项会限制过大的关节修正，宁可慢一点也不让数值失控。</p>
+</div>
+<h2 id="_3">动力学与控制<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>动力学（dynamics）</strong>将力纳入问题。机械臂的运动方程遵循<strong>机械臂方程（manipulator equation）</strong>：</li>
+</ul>
+<div class="arithmatex">\[M(\mathbf{q})\ddot{\mathbf{q}} + C(\mathbf{q}, \dot{\mathbf{q}})\dot{\mathbf{q}} + \mathbf{g}(\mathbf{q}) = \boldsymbol{\tau}\]</div>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>动力学不只问“会到哪里”，还问“要施加多大力矩才会这样动”。它把惯性、速度效应和重力都算进来。</p>
+</div>
+<ul>
+<li>其中 <span class="arithmatex">\(M(\mathbf{q})\)</span> 是质量，即惯性，矩阵；<span class="arithmatex">\(C(\mathbf{q}, \dot{\mathbf{q}})\)</span> 刻画科里奥利和离心效应；<span class="arithmatex">\(\mathbf{g}(\mathbf{q})\)</span> 是重力向量；<span class="arithmatex">\(\boldsymbol{\tau}\)</span> 是关节力矩向量，即控制输入。这是一个二阶微分方程组，每个关节一个方程。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>机器人每个关节受的力矩，要同时克服自身重量、带动质量和处理运动中的耦合效应，不能只靠位置误差硬拉。</p>
+</div>
+<ul>
+<li>质量矩阵 <span class="arithmatex">\(M\)</span> 总是对称正定的，回顾第 2 章，正定矩阵保证唯一最小值；这里它确保系统对施加力矩产生可预测响应。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>质量矩阵的好性质保证动力学不会出现荒谬的响应：给定力矩，系统的加速度关系是稳定、可预测的。</p>
+</div>
+<ul>
+<li>
+<p><strong>PID 控制（PID control）</strong>是机器人学中应用最广的控制器。对每个关节，它根据误差 <span class="arithmatex">\(e(t) = q_{\text{desired}}(t) - q_{\text{actual}}(t)\)</span> 计算力矩：</p>
+<div class="arithmatex">\[\tau(t) = K_p e(t) + K_i \int_0^t e(s) \, ds + K_d \dot{e}(t)\]</div>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>PID 就像持续纠偏：看现在差多远、过去一直差多少、以及误差变化得多快，再合成下一次施力。</p>
+</div>
+</li>
+</ul>
+<p>三项的作用直观可见：</p>
+<ul>
+<li><strong>比例项（Proportional）</strong>，<span class="arithmatex">\(K_p\)</span>：按当前误差成比例修正。误差越大，修正越大，如同弹簧将关节拉向目标。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>比例项只看眼前差距，离目标远就用更大力往回拉。</p>
+</div>
+<ul>
+<li><strong>积分项（Integral）</strong>，<span class="arithmatex">\(K_i\)</span>：积累过去误差，消除稳态偏移。若关节持续欠冲，积分项会累积并提供额外推动。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>积分项记住长期没补上的小误差，防止系统一直差一点却不再改进。</p>
+</div>
+<ul>
+<li><strong>微分项（Derivative）</strong>，<span class="arithmatex">\(K_d\)</span>：对误差变化速率作出反应，提供阻尼。误差缩小时它减慢响应，防止过冲和振荡。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>微分项像刹车，看到系统正快速冲向目标时提前减速，避免冲过头后反复摇摆。</p>
+</div>
+<p><img alt="PID 控制器调参：高 Kp 会振荡，高 Kd 会迟钝，调校良好的 PID 快速到达目标" src="../../images/pid_response.svg" /></p>
+<ul>
+<li>调整 <span class="arithmatex">\(K_p, K_i, K_d\)</span> 是一种平衡：过大的 <span class="arithmatex">\(K_p\)</span> 导致振荡，过大的 <span class="arithmatex">\(K_d\)</span> 使系统迟钝，过大的 <span class="arithmatex">\(K_i\)</span> 导致积分饱和，持续误差下积分无界增长。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>PID 没有万能参数：推得太猛会来回摆，刹得太狠会反应慢，记忆误差太强又会越积越失控。</p>
+</div>
+<ul>
+<li><strong>模型预测控制（Model Predictive Control，MPC）</strong>着眼未来。在每个时间步，它求解一个优化问题：在动力学模型和约束下，寻找有限时域内最小化代价函数，例如跟踪误差加控制代价，的未来控制序列。只施加第一个控制，再在下一时间步重复这一过程。</li>
+</ul>
+<div class="arithmatex">\[\min_{\mathbf{u}_{0:T}} \sum_{t=0}^{T} \left[ \|\mathbf{x}_t - \mathbf{x}_t^*\|_Q^2 + \|\mathbf{u}_t\|_R^2 \right] \quad \text{subject to} \quad \mathbf{x}_{t+1} = f(\mathbf{x}_t, \mathbf{u}_t)\]</div>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>MPC 每一步都会先在脑中预测未来几步，找出既接近目标又不违反限制的动作计划，但只执行第一步，再根据新情况重新规划。</p>
+</div>
+<ul>
+<li>此处 <span class="arithmatex">\(\|\mathbf{x}\|_Q^2 = \mathbf{x}^T Q \mathbf{x}\)</span> 是使用正定矩阵 <span class="arithmatex">\(Q\)</span> 的加权范数，第 2 章，使你能对不同状态误差施加不同惩罚。MPC 能自然处理约束，关节限制、力矩限制、避障，因为它们被显式写入优化问题。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>代价函数决定什么更重要，例如位置误差还是省力；约束直接写进求解器，所以“不要撞、不要超关节极限”不是事后补救。</p>
+</div>
+<ul>
+<li><strong>阻抗控制（impedance control）</strong>调节力与运动之间关系，而不追踪刚性轨迹。它不命令“到位置 <span class="arithmatex">\(x\)</span>”，而是命令“表现得像以 <span class="arithmatex">\(x\)</span> 为中心的弹簧-阻尼系统”：</li>
+</ul>
+<div class="arithmatex">\[F = K_s(\mathbf{x}^* - \mathbf{x}) + D(\dot{\mathbf{x}}^* - \dot{\mathbf{x}})\]</div>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>阻抗控制不强迫手一定走到精确坐标，而是规定它该有多硬、多能让步，像带弹簧和阻尼的手。</p>
+</div>
+<ul>
+<li>其中 <span class="arithmatex">\(K_s\)</span> 是刚度矩阵，<span class="arithmatex">\(D\)</span> 是阻尼矩阵。这使机器人具有柔顺性：接触障碍物时会让步，而不是强行推进。阻抗控制对插销入孔、将物品递给人等接触丰富任务必不可少。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>接触人或物体时，太硬会顶坏东西，太软又做不成事。刚度和阻尼让机器人能安全地顶、插、递和贴合。</p>
+</div>
+<h2 id="_4">模仿学习<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<ul>
+<li>我们可以不手工设计控制器，而是从示范中学习控制策略。人完成任务，机器人观察，学习算法提取策略。这就是<strong>模仿学习（imitation learning）</strong>，或从示范学习。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>模仿学习让机器人先看人怎么做，再把观察和动作之间的规律学出来，省去手写大量控制规则。</p>
+</div>
+<ul>
+<li><strong>行为克隆（behavioural cloning，BC）</strong>是最简单的方法：将示范视作监督学习数据集。给定专家的观察-动作对 <span class="arithmatex">\(\{(\mathbf{o}_t, \mathbf{a}_t)\}\)</span>，训练策略 <span class="arithmatex">\(\pi_\theta(\mathbf{a} \mid \mathbf{o})\)</span>，从观察预测专家动作。这是标准监督学习，第 6 章：最小化损失：</li>
+</ul>
+<div class="arithmatex">\[\mathcal{L}(\theta) = \mathbb{E}_{(\mathbf{o}, \mathbf{a}) \sim \mathcal{D}} \left[ \| \pi_\theta(\mathbf{o}) - \mathbf{a} \|^2 \right]\]</div>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>行为克隆把专家演示当成“看到这个情况就做这个动作”的练习题，直接学习模仿专家。</p>
+</div>
+<p><img alt="行为克隆中的分布偏移：小误差不断累积，使学习到的策略远离专家轨迹" src="../../images/distribution_shift_bc.svg" /></p>
+<ul>
+<li>问题在于<strong>分布偏移（distribution shift）</strong>，也称<strong>误差累积问题（compounding error problem）</strong>。训练时，策略看到专家状态；部署时，策略自身的小误差将其推到专家从未访问过的状态。这些陌生状态导致更差动作，又导致更陌生状态，误差迅速累积。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>训练数据只教了机器人“走在正确路线上怎么办”。它一旦自己偏一点，就进入没见过的情况，越慌越偏。</p>
+</div>
+<ul>
+<li>想象通过观察完美驾驶员学习开车。你从未看见轻微偏航后会发生什么，因为专家从不偏航。第一次轻微偏离时，你不知道如何恢复。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>只看完美示范会学到正常操作，却学不到补救动作。现实里最重要的往往正是偏了以后怎样拉回。</p>
+</div>
+<ul>
+<li><strong>DAgger</strong>（Dataset Aggregation）通过迭代解决这一问题：</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>DAgger 让当前机器人自己上场，专门收集它会犯错的状态，再请专家教这些状态该怎么处理。</p>
+<ol>
+<li>
+<p>在当前数据上训练策略。</p>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>先用已有示范训练出当前版本的策略。</p>
+</div>
+</li>
+<li>
+<p>在环境中运行策略，收集新状态。</p>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>让策略实际执行，暴露它真正会走到的陌生状态。</p>
+</div>
+</li>
+<li>
+<p>请专家为新状态标注正确动作。</p>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>即使机器人做错了，也让专家告诉它此刻应该怎样恢复。</p>
+</div>
+</li>
+<li>
+<p>将新数据加入数据集并重新训练。</p>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>把这些补救样本加入下一轮训练，策略就会逐步学会处理自己的错误。</p>
+</div>
+</li>
+</ol>
+</div>
+<ul>
+<li>经过多轮迭代，数据集覆盖学习到的策略实际访问的状态，而不只是专家轨迹。策略会改进，因为它看见并学会从自身错误中恢复。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>多轮后，训练集不再只包含理想路线，也包含真实执行时常见的偏差和恢复办法，部署更稳。</p>
+</div>
+<ul>
+<li><strong>使用 Transformer 的动作分块（Action Chunking with Transformers，ACT）</strong>是现代方法：策略预测未来动作序列，即一个“块”，而不是一次预测一个动作。它使用以 Transformer 为主干的条件 VAE 实现。预测动作块更稳健，因为它捕获时间相关性：伸手动作的平滑性被编码在块中，而不依赖会漂移的自回归单步预测。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>ACT 不只决定下一毫秒怎么动，而是一次规划一小段连续动作。这样伸手、抓取等动作更顺滑，不容易逐步累积抖动。</p>
+</div>
+<ul>
+<li><strong>扩散策略（Diffusion Policy）</strong>将第 8 章扩散模型应用于动作生成。它不预测单一动作，而是建模以观察为条件的全部可能动作分布。从噪声开始，它迭代去噪生成动作序列。这能自然处理<strong>多模态性（multimodality）</strong>：任务存在多种有效完成方法时，例如从左侧或右侧伸手，扩散模型能表示两个模式；回归策略会将它们平均，伸向中间，而中间可能两边都无效。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>有些任务本来就有多种正确做法。扩散策略能保留“从左拿”或“从右拿”两个选择，普通回归却可能平均成一个两边都拿不到的动作。</p>
+</div>
+<h2 id="_5">仿真到真实迁移<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<ul>
+<li>在真实世界训练机器人昂贵、缓慢且危险。机器人通过试错学习抓取可能要数千次尝试，期间会损坏物体和自身。<strong>仿真（simulation）</strong>提供无限、安全、快速的经验。但模拟器并不完美：物理是近似的，视觉是合成的，接触被简化。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>真实机器人摔一次就可能花钱和花时间，仿真能让它反复失败而不受伤，但仿真永远不可能和现实完全一样。</p>
+</div>
+<ul>
+<li><strong>仿真到真实差距（sim-to-real gap）</strong>是模拟与真实表现之间的差异。在仿真中完美运行的策略可能在真实机器人上完全失败，因为它过拟合了模拟器特有细节。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>机器人可能学会的是“模拟器里的物理规律”，一换成真实摩擦、延迟和噪声就不会做了，这就是仿真到真实的鸿沟。</p>
+</div>
+<p><img alt="通过领域随机化实现仿真到真实：在许多随机化仿真上训练，使真实世界只是另一种变体" src="../../images/sim_to_real.svg" /></p>
+<ul>
+<li><strong>领域随机化（domain randomisation）</strong>通过在广泛模拟器设置上训练来应对这一问题。不是使用一个仿真，而是使用数千个随机化的仿真：</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>领域随机化故意让模拟世界千变万化，逼策略别依赖某一套固定纹理、摩擦或马达参数。</p>
+<ul>
+<li>
+<p>物理：摩擦系数、质量、阻尼。</p>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>每次让物体更滑、更重或阻尼不同，训练策略适应物理不确定性。</p>
+</div>
+</li>
+<li>
+<p>视觉：光照、纹理、颜色、相机位置。</p>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>改变灯光和外观，避免模型只会识别模拟器里某种固定画面。</p>
+</div>
+</li>
+<li>
+<p>动力学：电机延迟、噪声水平。</p>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>模拟控制指令不立即生效和传感器有噪声，使策略更接近真实硬件环境。</p>
+</div>
+</li>
+</ul>
+</div>
+<ul>
+<li>思路是，若策略在这些变体上都有效，真实世界只是该分布中的“另一种变体”。策略学习对随机化属性不变的特征，这些不变特征可迁移。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>在很多变化条件下都能成功的策略，更可能把现实当成又一个普通变化，而不是一上真实机器就失效。</p>
+</div>
+<ul>
+<li><strong>系统辨识（system identification）</strong>采取相反做法：不随机化一切，而是仔细测量真实系统的物理参数，并将模拟器调到匹配。这会得到更精确的仿真，但很脆弱，任何未建模效应都会造成差距。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>系统辨识努力造一个尽可能像真实机器的模拟器，效果精细但依赖测得准；漏掉一个效应，迁移仍可能出问题。</p>
+</div>
+<ul>
+<li>实践中，最佳结果会结合两者：先用系统辨识让模拟器足够接近，再用领域随机化覆盖剩余不确定性。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>先把模拟器调到大致真实，再在周围随机扰动，既不从完全错误的起点学习，也不假装参数绝对准确。</p>
+</div>
+<ul>
+<li><strong>通过微调实现仿真到真实（sim-to-real via fine-tuning）</strong>主要在仿真中训练，随后进行少量真实世界微调。仿真提供良好初始化，真实数据修正模拟器特有偏差。它比从头训练需要少得多的真实数据。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>仿真先打基础，真实数据最后校准。这样只需少量昂贵的真实试验，就能纠正模拟世界学来的偏差。</p>
+</div>
+<h2 id="_6">面向机器人的世界模型<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<ul>
+<li>上述全部强化学习和模仿学习方法都是<strong>无模型（model-free）</strong>的：策略通过直接交互，或示范，学习行动，而不显式建模世界如何运行。另一种方法是<strong>基于模型（model-based）</strong>学习：先学习环境动力学模型，再使用模型规划或生成合成经验。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>无模型方法直接学“现在该做什么”；基于模型方法先学“做了会发生什么”，再利用这个内部预测来选动作。</p>
+</div>
+<ul>
+<li><strong>世界模型（world model）</strong>学习转移函数 <span class="arithmatex">\(p(s_{t+1} \mid s_t, a_t)\)</span>：给定当前状态和动作，预测下一个状态，第 10 章已经介绍。在机器人学中，这意味着预测机器人采取特定动作后会发生什么：“若我将这块积木推向左边，它会滑动 3cm，后面的杯子会倾倒。”</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>世界模型是机器人脑中的小型物理预演器，能在动手前估计推、抓、碰之后会造成什么结果。</p>
+</div>
+<ul>
+<li>吸引力在于<strong>样本效率（sample efficiency）</strong>。真实世界机器人交互代价高。若机器人能从适量真实数据学习世界模型，它就能在内部展开模型，“想象”数千条轨迹，在不接触物理世界的情况下规划并改进策略。这类似棋手在脑中模拟走法来提前思考。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>一次真实动作可能昂贵或危险，而内部想象可以反复试。世界模型让机器人少做现实试错，多做脑内演练。</p>
+</div>
+<ul>
+<li><strong>DreamerV3</strong> 是通用的基于模型 RL 智能体。它联合学习三个部分：</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>DreamerV3 把“看懂状态、预测未来、估计奖励”分成三个可学习部件，再在想象环境里训练动作策略。</p>
+<ul>
+<li>
+<p><strong>表征模型（representation model）</strong>：将观察编码为紧凑潜在状态。</p>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>它把原始图像或传感器数据压成更容易计算的内部状态。</p>
+</div>
+</li>
+<li>
+<p><strong>转移模型（transition model）</strong>，即世界模型：根据当前状态和动作预测下一个潜在状态。</p>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>它负责回答“在这个状态做这个动作，下一刻内部状态会怎样变”。</p>
+</div>
+</li>
+<li>
+<p><strong>奖励模型（reward model）</strong>：根据潜在状态预测奖励。</p>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>它估计未来状态好不好，给规划和策略学习提供方向。</p>
+</div>
+</li>
+</ul>
+</div>
+<ul>
+<li>智能体随后在潜在空间中多步展开转移模型来“做梦”，用这些想象轨迹训练策略，并将策略转移到真实环境。关键创新是全部想象发生在潜在空间，即紧凑学习表示，而非像素空间，因此计算上可行。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>机器人不在脑中渲染每个像素，而是在压缩状态里快速模拟很多步，这才有足够速度用想象结果训练策略。</p>
+</div>
+<div class="arithmatex">\[\hat{s}_{t+1} = f_\theta(s_t, a_t), \quad \hat{r}_t = g_\theta(s_t)\]</div>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>第一个函数预测下一状态，第二个函数预测当前状态值多少奖励。两者合起来让策略既能看未来，也能比较不同选择的好坏。</p>
+</div>
+<ul>
+<li>转移模型 <span class="arithmatex">\(f_\theta\)</span> 和奖励模型 <span class="arithmatex">\(g_\theta\)</span> 在真实经验上训练，策略在想象展开上训练。这将数据收集与策略优化解耦。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>真实交互主要用来把世界模型学准，策略改进则主要在内部模拟完成，减少了对真实机器的消耗。</p>
+</div>
+<ul>
+<li>对机器人操作，世界模型支持<strong>心理演练（mental rehearsal）</strong>。在尝试抓取前，机器人可在学习到的模型中模拟多种接近方式，选择最可能成功的一种。这对真实世界试错缓慢且危险的接触丰富任务尤其有价值。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>抓取前先在脑中试几种手势，选最稳的一种再动手，能显著减少真实物体被碰倒或抓空的次数。</p>
+</div>
+<ul>
+<li>世界模型还自然连接到<strong>仿真到真实（sim-to-real）</strong>：在真实数据上训练的世界模型本质上是学习到的模拟器，自动捕获真实世界物理，从而完全绕开仿真到真实差距。对于理解充分的场景，它可能不如手工模拟器精确，但能捕获手工模拟器常常建模错误的效应，摩擦、变形、接触动力学。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>从真实数据学出的世界模型不必先手工写全物理公式，它能直接吸收真实摩擦、软硬和接触效果，但也受训练数据覆盖范围限制。</p>
+</div>
+<ul>
+<li><strong>JEPA</strong>（Joint Embedding Predictive Architecture，第 10 章介绍）提供像素级预测的替代方案。JEPA 不预测精确未来观察，而是在嵌入空间预测：“下一状态的潜在表示将接近这个向量。”这避开预测像素级精确未来的困难，那既不必要又浪费计算，并专注预测对决策重要的未来方面。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>JEPA 不要求准确预言未来每个像素，而是预测对行动有用的状态变化，例如物体是否移动、是否接近碰撞。</p>
+</div>
+<ul>
+<li>世界模型的局限是<strong>预测误差累积（compounding prediction error）</strong>。转移模型的小误差在长展开中累积，使想象轨迹偏离现实。缓解方法包括较短的想象时域、集成模型，利用不确定性检测预测何时不可靠，以及定期用新鲜真实数据让模型重新落地。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>世界模型预测得越远，误差越会一层层放大。实际系统要限制想象长度、识别不确定情况，并不断用真实数据校准。</p>
+</div>
+<h2 id="_7">操作<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>操作（manipulation）</strong>是使用机器人末端执行器与物体交互的技艺：拾取、放置、推动、插入、装配。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>操作就是让机器人不只移动自己，还能可靠地改变物体的位置和状态，例如拿起、推开或装配。</p>
+</div>
+<ul>
+<li><strong>抓取（grasping）</strong>是基础操作技能。目标是找到稳定抓取姿态：使夹爪能牢固持住物体的位置和方向。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>抓取不是碰到物体就行，而是要选一个夹爪位置和角度，保证拿起来不会滑、不会转、不会掉。</p>
+</div>
+<ul>
+<li><strong>解析抓取规划（analytical grasp planning）</strong>使用物理学。若接触力能抵抗外部扳手力，即力和力矩，抓取便稳定。对平行夹爪，最简单准则是<strong>力封闭（force closure）</strong>条件：接触法线必须张成全部力方向，使抓取能抵抗任意扰动。这涉及检查抓取扳手矩阵的秩，是第 2 章秩概念的直接应用。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>力封闭的意思是夹爪从不同方向施力后，能抵抗物体受到的任何小推拉和转动，不会一碰就掉。</p>
+</div>
+<ul>
+<li><strong>数据驱动抓取（data-driven grasping）</strong>学习从传感器输入预测抓取成功。给定桌上物体的深度图，网络为每个候选夹爪姿态预测抓取质量得分。<strong>GraspNet</strong> 和类似架构使用点云编码器，PointNet 风格，第 8 章，预测带置信度得分的六自由度抓取姿态，位置加方向。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>数据驱动方法不必为每种复杂物体手写物理规则，而是从大量成功和失败样本中学会哪些抓取位置更稳。</p>
+</div>
+<ul>
+<li><strong>灵巧操作（dexterous manipulation）</strong>超越简单的抓取放置。多指手拥有 20 多个自由度，能完成手内旋转，在手指间转笔、工具使用和精密装配等任务。状态空间极大且接触复杂，使它成为机器人学最困难的问题之一。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>多指手像人手一样灵活，但每根手指都可能接触、滑动和互相影响，组合情况爆炸，因此比普通夹爪难很多。</p>
+</div>
+<ul>
+<li>学习灵巧操作常在具有大量领域随机化的仿真中使用强化学习，第 6 章。OpenAI 使用 Shadow 手解决魔方的工作，在随机物理的仿真中训练 PPO 策略，成功迁移到真实机器人手。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>灵巧操作真实试错太难，通常先在大量随机模拟里练出策略，再把它迁移到真实机械手。</p>
+</div>
+<ul>
+<li>插销入孔、擦拭表面等<strong>接触丰富任务（contact-rich tasks）</strong>要求机器人与环境保持受控接触。这些任务需要力感知和柔顺控制，即阻抗控制；接触物理难以建模，因此难以准确仿真。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>插入和擦拭要一边施力一边调整，不能只追位置。接触细节非常复杂，这也是从仿真迁移时最容易出错的部分。</p>
+</div>
+<h2 id="_8">运动<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<ul>
+<li>运动（locomotion）是让机器人身体穿行于世界：行走、奔跑、攀爬、游泳。它与操作的关键区别是，机器人必须在移动时保持平衡，并且与地面的接触点会随时间变化。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>运动不仅是往前走，还要在不断改变落脚点时不摔倒。它比固定底座机械臂多了平衡这个持续难题。</p>
+</div>
+<ul>
+<li><strong>足式运动（legged locomotion）</strong>具有挑战性，因为它内在不稳定。双足机器人，即人形机器人，在迈步时单腿站立，像倒立摆。质心必须保持在支撑多边形，即接触地面足部的凸包，上方，否则机器人会跌倒。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>人形走路时经常只有一只脚支撑，身体重心必须落在脚能支撑的范围内，否则就会像倒立的扫把一样倒下。</p>
+</div>
+<ul>
+<li><strong>零力矩点（Zero Moment Point，ZMP）</strong>是地面上重力与惯性力合力矩为零的点。若 ZMP 保持在支撑多边形内，机器人不会倾倒。Honda ASIMO 等传统人形控制器规划使 ZMP 保持在边界内的轨迹。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>ZMP 是衡量平衡的一个地面位置。只要这个点还在脚底支撑范围里，机器人就有机会稳住；跑出范围就容易翻倒。</p>
+</div>
+<ul>
+<li><strong>中央模式发生器（Central Pattern Generators，CPGs）</strong>是受生物学启发的、基于振荡器的控制器。动物用脊髓神经回路生成有节律的运动模式，步行、小跑、疾驰，无需大脑持续参与。CPG 模型使用耦合微分方程：</li>
+</ul>
+<div class="arithmatex">\[\dot{\phi}_i = \omega_i + \sum_j w_{ij} \sin(\phi_j - \phi_i - \psi_{ij})\]</div>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>CPG 让每条腿像一个节拍器，彼此保持合适节奏。这样能自然产生重复而协调的步态，不必每一瞬间都重新规划。</p>
+</div>
+<ul>
+<li>其中 <span class="arithmatex">\(\phi_i\)</span> 是振荡器 <span class="arithmatex">\(i\)</span> 的相位，<span class="arithmatex">\(\omega_i\)</span> 是自然频率，<span class="arithmatex">\(w_{ij}\)</span> 是耦合强度，<span class="arithmatex">\(\psi_{ij}\)</span> 是期望相位偏移。不同相位关系产生不同步态：所有腿同步，跳跃；交替成对，小跑；依次运动，步行。正弦耦合自然同步振荡器，类似第 3 章傅里叶级数将运动分解为频率分量。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>只要改变各腿之间该相差几个节拍，同一套振荡器就能切换走路、小跑或跳跃等步态。</p>
+</div>
+<ul>
+<li><strong>用于运动的强化学习（reinforcement learning for locomotion）</strong>已成为敏捷四足与人形机器人的主流方法。机器人在仿真中通过试错，第 6 章，学习策略 <span class="arithmatex">\(\pi(\mathbf{a} \mid \mathbf{o})\)</span>；对前进速度、稳定性和能效给予奖励，对跌倒、违反关节限制和抖动动作施加惩罚。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>运动 RL 通过奖励“走得快、稳、省电”，惩罚“摔倒、抖动、超限制”，让机器人在大量模拟试错中找到步法。</p>
+</div>
+<ul>
+<li>近期工作，例如 Agility Robotics、Boston Dynamics 和学术实验室，的关键洞见是：RL 训练的运动策略远比手工设计控制器稳健。它们自然学会从推搡中恢复、适应地形变化，并处理工程师未曾预料的情况。训练通常使用 PPO，第 6 章，配合领域随机化。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>手写控制器很难预先列完所有地形和扰动；RL 在大量随机情况里练习后，往往能学到被推一下也不倒的恢复能力。</p>
+</div>
+<ul>
+<li>Boston Dynamics Spot、Unitree Go2 等<strong>四足机器人（quadruped robots）</strong>已成为足式机器人主力。四条腿提供内在稳定性，三腿构成的三脚架总能在一条腿移动时支撑身体。四足 RL 策略取得了令人印象深刻的成果：以 3 m/s 以上奔跑、爬楼梯、穿越岩石地形、从踢击中恢复。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>四条腿比两条腿稳定得多，移动一条腿时仍能用另外三条腿撑住身体，所以是复杂地形中更实用的形态。</p>
+</div>
+<ul>
+<li><strong>人形运动（humanoid locomotion）</strong>更难，因为双足机器人具有更小支撑多边形和更高质心。Tesla Optimus、Figure、Unitree H1 等近期进展使用经过精心奖励塑形的仿真 RL。人形机器人不仅要学会走路，还要协调摆臂以平衡、通过不平地面、从扰动中恢复。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>人形机器人的重心高、脚底小，稍有误差就会摔。它还要把腿、躯干和手臂一起协调，难度远高于四足。</p>
+</div>
+<h2 id="_9">机器人学习中的安全<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<ul>
+<li>随机探索以学习的机器人，如 RL 中那样，可能损坏自身、环境或附近的人。<strong>安全机器人学习（safe robot learning）</strong>约束探索以避免灾难性后果。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>让机器人随便试错在现实中不可接受。安全学习的底线是：即使策略还没学好，也不能让它做危险动作。</p>
+</div>
+<ul>
+<li><strong>约束强化学习（constrained RL）</strong>为 MDP，第 6 章，添加安全约束。目标变为：在 <span class="arithmatex">\(J_c(\pi) \leq d\)</span> 条件下最大化奖励，其中 <span class="arithmatex">\(J_c\)</span> 是期望累积成本，例如碰撞事件，<span class="arithmatex">\(d\)</span> 是最大允许成本。约束策略优化，Constrained Policy Optimisation，CPO 等算法扩展 PPO 来处理这些约束。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>约束 RL 不再只问怎样得高分，还要求碰撞、超力等风险成本不能超过红线。高奖励但危险的策略不算合格。</p>
+</div>
+<ul>
+<li><strong>安全包络（safety envelopes）</strong>定义机器人绝不可跨越的硬边界，不论学习到的策略如何要求。安全控制器监视机器人状态，当约束即将违反时覆盖学习策略，例如接近关节极限、在人附近移动过快、超过力阈值。这是分层架构：学习算法负责性能，安全层负责约束。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>安全包络像独立的急停和限位系统。学习策略可以追求表现，但一接近危险边界，安全层有最终否决权。</p>
+</div>
+<ul>
+<li><strong>风险感知规划（risk-aware planning）</strong>显式建模环境与机器人自身状态估计中的不确定性。它不为最可能结果规划，而是在置信边界内为最坏情况规划。这与第 2 章条件数概念相关：良态系统对扰动稳健，风险感知规划寻求在扰动下仍安全的控制策略。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>有不确定性时不能只按最乐观情况行动。风险感知规划会预留余量，即使感知或模型有误差也尽量不出事。</p>
+</div>
+<h2 id="colab-notebook">编码练习（使用 CoLab 或 notebook）<a class="headerlink" href="#colab-notebook" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>为简单双连杆平面机械臂实现正向运动学。计算并可视化不同关节角下的末端执行器位置。
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">jax.numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">jnp</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">forward_kinematics</span><span class="p">(</span><span class="n">q1</span><span class="p">,</span> <span class="n">q2</span><span class="p">,</span> <span class="n">l1</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">l2</span><span class="o">=</span><span class="mf">0.8</span><span class="p">):</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute joint and end-effector positions for a 2-link arm.&quot;&quot;&quot;</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">x1</span> <span class="o">=</span> <span class="n">l1</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">q1</span><span class="p">)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">y1</span> <span class="o">=</span> <span class="n">l1</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">q1</span><span class="p">)</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n">x2</span> <span class="o">=</span> <span class="n">x1</span> <span class="o">+</span> <span class="n">l2</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">q1</span> <span class="o">+</span> <span class="n">q2</span><span class="p">)</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="n">y2</span> <span class="o">=</span> <span class="n">y1</span> <span class="o">+</span> <span class="n">l2</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">q1</span> <span class="o">+</span> <span class="n">q2</span><span class="p">)</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="k">return</span> <span class="n">jnp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">]),</span> <span class="n">jnp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">])</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="n">configs</span> <span class="o">=</span> <span class="p">[(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">),</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.5</span><span class="p">)]</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;#e74c3c&quot;</span><span class="p">,</span> <span class="s2">&quot;#3498db&quot;</span><span class="p">,</span> <span class="s2">&quot;#27ae60&quot;</span><span class="p">,</span> <span class="s2">&quot;#9b59b6&quot;</span><span class="p">]</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="k">for</span> <span class="p">(</span><span class="n">q1</span><span class="p">,</span> <span class="n">q2</span><span class="p">),</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">configs</span><span class="p">,</span> <span class="n">colors</span><span class="p">):</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span> <span class="o">=</span> <span class="n">forward_kinematics</span><span class="p">(</span><span class="n">q1</span><span class="p">,</span> <span class="n">q2</span><span class="p">)</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="s2">&quot;o-&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>            <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;q=(</span><span class="si">{</span><span class="n">q1</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">q2</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;2-Link Robot Arm: Forward Kinematics&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>使用雅可比伪逆实现逆运动学。从随机构型开始，迭代将末端执行器移动到目标。
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">jax</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">jax.numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">jnp</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">l1</span><span class="p">,</span> <span class="n">l2</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.8</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="k">def</span><span class="w"> </span><span class="nf">end_effector</span><span class="p">(</span><span class="n">q</span><span class="p">):</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="n">x</span> <span class="o">=</span> <span class="n">l1</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="n">l2</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="n">y</span> <span class="o">=</span> <span class="n">l1</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="n">l2</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="k">return</span> <span class="n">jnp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="n">jacobian_fn</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">jacobian</span><span class="p">(</span><span class="n">end_effector</span><span class="p">)</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="n">target</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">])</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="n">q</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">])</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="n">trajectory</span> <span class="o">=</span> <span class="p">[</span><span class="n">end_effector</span><span class="p">(</span><span class="n">q</span><span class="p">)]</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>    <span class="n">pos</span> <span class="o">=</span> <span class="n">end_effector</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>    <span class="n">error</span> <span class="o">=</span> <span class="n">target</span> <span class="o">-</span> <span class="n">pos</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>    <span class="k">if</span> <span class="n">jnp</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-4</span><span class="p">:</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>        <span class="k">break</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>    <span class="n">J</span> <span class="o">=</span> <span class="n">jacobian_fn</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>    <span class="c1"># Damped pseudo-inverse to handle near-singularities</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>    <span class="n">dq</span> <span class="o">=</span> <span class="n">J</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">jnp</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">J</span> <span class="o">@</span> <span class="n">J</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="mf">0.01</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">error</span><span class="p">)</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>    <span class="n">q</span> <span class="o">=</span> <span class="n">q</span> <span class="o">+</span> <span class="n">dq</span>
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>    <span class="n">trajectory</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">end_effector</span><span class="p">(</span><span class="n">q</span><span class="p">))</span>
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a><span class="n">traj</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">trajectory</span><span class="p">)</span>
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">traj</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">traj</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;b.-&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;end-effector path&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">*</span><span class="n">target</span><span class="p">,</span> <span class="s2">&quot;r*&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;target&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;IK converged in </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">trajectory</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="si">}</span><span class="s2"> steps&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>模拟简单 PID 控制器跟踪期望关节轨迹。观察调节增益的影响。
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">jax.numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">jnp</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Desired trajectory: smooth sinusoidal motion</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">dt</span> <span class="o">=</span> <span class="mf">0.01</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">t</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="n">q_desired</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="c1"># Simulate second-order dynamics: m * q_ddot + b * q_dot = tau</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="n">m</span><span class="p">,</span> <span class="n">b_damp</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="k">for</span> <span class="n">Kp</span><span class="p">,</span> <span class="n">Kd</span><span class="p">,</span> <span class="n">Ki</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="p">[(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;PD only&quot;</span><span class="p">),</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;PID&quot;</span><span class="p">),</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;Aggressive PID&quot;</span><span class="p">)]:</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="n">q</span><span class="p">,</span> <span class="n">q_dot</span><span class="p">,</span> <span class="n">integral</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    <span class="n">qs</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)):</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>        <span class="n">error</span> <span class="o">=</span> <span class="n">q_desired</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">q</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>        <span class="n">integral</span> <span class="o">+=</span> <span class="n">error</span> <span class="o">*</span> <span class="n">dt</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>        <span class="n">d_error</span> <span class="o">=</span> <span class="o">-</span><span class="n">q_dot</span>  <span class="c1"># derivative of error (desired velocity is known but simplified here)</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>        <span class="n">tau</span> <span class="o">=</span> <span class="n">Kp</span> <span class="o">*</span> <span class="n">error</span> <span class="o">+</span> <span class="n">Kd</span> <span class="o">*</span> <span class="n">d_error</span> <span class="o">+</span> <span class="n">Ki</span> <span class="o">*</span> <span class="n">integral</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>        <span class="n">q_ddot</span> <span class="o">=</span> <span class="p">(</span><span class="n">tau</span> <span class="o">-</span> <span class="n">b_damp</span> <span class="o">*</span> <span class="n">q_dot</span><span class="p">)</span> <span class="o">/</span> <span class="n">m</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>        <span class="n">q_dot</span> <span class="o">+=</span> <span class="n">q_ddot</span> <span class="o">*</span> <span class="n">dt</span>
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>        <span class="n">q</span> <span class="o">+=</span> <span class="n">q_dot</span> <span class="o">*</span> <span class="n">dt</span>
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>        <span class="n">qs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">q</span><span class="p">))</span>
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">qs</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>
+<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">q_desired</span><span class="p">,</span> <span class="s2">&quot;k--&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;desired&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Joint angle&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;PID Controller Tracking&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></p>
+</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../01.%20perception/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 感知">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                感知
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../03.%20vision-language-action%20models/" class="md-footer__link md-footer__link--next" aria-label="下一页: 视觉-语言-动作模型">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                视觉-语言-动作模型
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/HenryNdubuaku/maths-cs-ai-compendium" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../javascripts/pyodide-runner.js"></script>
+      
+    
+  </body>
+</html>

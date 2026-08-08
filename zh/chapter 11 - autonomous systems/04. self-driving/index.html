@@ -1,0 +1,5981 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="一本从基础出发、重视直觉的数学、计算机科学与人工智能开放教材。">
+      
+      
+        <meta name="author" content="Henry Ndubuaku">
+      
+      
+        <link rel="canonical" href="https://zengyufei.github.io/maths-cs-ai-compendium/zh/chapter%2011%20-%20autonomous%20systems/04.%20self-driving/">
+      
+      
+        <link rel="prev" href="../03.%20vision-language-action%20models/">
+      
+      
+        <link rel="next" href="../05.%20space%20and%20extreme%20robotics/">
+      
+      
+        
+          <link rel="alternate" href="https://zengyufei.github.io/maths-cs-ai-compendium/" hreflang="en">
+        
+          <link rel="alternate" href="https://zengyufei.github.io/maths-cs-ai-compendium/zh/" hreflang="zh">
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>自动驾驶 - 数学、计算机与人工智能教程</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/pyodide-runner.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="slate" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="数学、计算机与人工智能教程" class="md-header__button md-logo" aria-label="数学、计算机与人工智能教程" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            数学、计算机与人工智能教程
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              自动驾驶
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="slate" data-md-color-accent="indigo"  aria-label="切换至深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换至深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="slate" data-md-color-accent="indigo"  aria-label="切换至浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="选择当前语言">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="https://zengyufei.github.io/maths-cs-ai-compendium/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="https://zengyufei.github.io/maths-cs-ai-compendium/zh/" hreflang="zh" class="md-select__link">
+              简体中文
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/HenryNdubuaku/maths-cs-ai-compendium" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    HenryNdubuaku/maths-cs-ai-compendium
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2001%20-%20vectors/01.%20vector%20spaces/" class="md-tabs__link">
+          
+  
+  
+  向量
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2002%20-%20matrices/01.%20matrix%20properties/" class="md-tabs__link">
+          
+  
+  
+  矩阵
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2003%20-%20calculus/01.%20differential%20calculus/" class="md-tabs__link">
+          
+  
+  
+  微积分
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2004%20-%20statistics/01.%20fundamentals/" class="md-tabs__link">
+          
+  
+  
+  统计学
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2005%20-%20probability/01.%20counting/" class="md-tabs__link">
+          
+  
+  
+  概率论
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2006%20-%20machine%20learning/01.%20classical%20machine%20learning/" class="md-tabs__link">
+          
+  
+  
+  机器学习
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2007%20-%20computational%20linguistics/01.%20linguistic%20foundations/" class="md-tabs__link">
+          
+  
+  
+  计算语言学
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2008%20-%20computer%20vision/01.%20image%20fundamentals/" class="md-tabs__link">
+          
+  
+  
+  计算机视觉
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2009%20-%20audio%20and%20speech/01.%20digital%20signal%20processing/" class="md-tabs__link">
+          
+  
+  
+  音频与语音
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2010%20-%20multimodal%20learning/01.%20multimodal%20representations/" class="md-tabs__link">
+          
+  
+  
+  多模态学习
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../01.%20perception/" class="md-tabs__link">
+          
+  
+  
+  自主系统
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2012%20-%20graph%20neural%20networks/01.%20geometric%20deep%20learning/" class="md-tabs__link">
+          
+  
+  
+  图神经网络
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2013%20-%20computing%20and%20OS/01.%20discrete%20maths/" class="md-tabs__link">
+          
+  
+  
+  计算与操作系统
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2014%20-%20data%20structures%20and%20algorithms/00.%20foundations/" class="md-tabs__link">
+          
+  
+  
+  数据结构与算法
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2015%20-%20production%20software%20engineering/01.%20linux%20and%20CMD/" class="md-tabs__link">
+          
+  
+  
+  生产软件工程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2016%20-%20SIMD%20and%20GPU%20programming/00.%20why%20C%2B%2B%20and%20how%20ML%20frameworks%20work/" class="md-tabs__link">
+          
+  
+  
+  SIMD 与 GPU 编程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2017%20-%20AI%20inference/01.%20quantisation/" class="md-tabs__link">
+          
+  
+  
+  AI 推理
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2018%20-%20ML%20systems%20design/01.%20systems%20design%20fundamentals/" class="md-tabs__link">
+          
+  
+  
+  ML 系统设计
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2019%20-%20applied%20AI/01.%20AI%20for%20finance/" class="md-tabs__link">
+          
+  
+  
+  应用 AI
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../chapter%2020%20-%20bleeding%20edge%20AI/01.%20quantum%20machine%20learning/" class="md-tabs__link">
+          
+  
+  
+  前沿 AI
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="数学、计算机与人工智能教程" class="md-nav__button md-logo" aria-label="数学、计算机与人工智能教程" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    数学、计算机与人工智能教程
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/HenryNdubuaku/maths-cs-ai-compendium" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    HenryNdubuaku/maths-cs-ai-compendium
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    向量
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    向量
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2001%20-%20vectors/01.%20vector%20spaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    向量空间
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2001%20-%20vectors/02.%20vector%20properties/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    向量性质
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2001%20-%20vectors/03.%20norms%20and%20metrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    范数与度量
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2001%20-%20vectors/04.%20products/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    向量积
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2001%20-%20vectors/05.%20basis%20and%20duality/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基与对偶
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    矩阵
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    矩阵
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2002%20-%20matrices/01.%20matrix%20properties/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    矩阵性质
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2002%20-%20matrices/02.%20matrix%20types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    矩阵类型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2002%20-%20matrices/03.%20operations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    矩阵运算
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2002%20-%20matrices/04.%20linear%20transformations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    线性变换
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2002%20-%20matrices/05.%20decompositions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    矩阵分解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    微积分
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    微积分
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2003%20-%20calculus/01.%20differential%20calculus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    微分学
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2003%20-%20calculus/02.%20integral%20calculus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    积分学
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2003%20-%20calculus/03.%20multivariate%20calculus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    多元微积分
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2003%20-%20calculus/04.%20function%20approximation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    函数逼近
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2003%20-%20calculus/05.%20optimisation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    优化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    统计学
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    统计学
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2004%20-%20statistics/01.%20fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    统计学基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2004%20-%20statistics/02.%20measures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    统计量
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2004%20-%20statistics/03.%20sampling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    抽样
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2004%20-%20statistics/04.%20hypothesis%20testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    假设检验
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2004%20-%20statistics/05.%20inference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    统计推断
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概率论
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    概率论
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2005%20-%20probability/01.%20counting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计数
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2005%20-%20probability/02.%20probability%20concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概率概念
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2005%20-%20probability/03.%20distributions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概率分布
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2005%20-%20probability/04.%20bayesian/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    贝叶斯方法与序列模型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2005%20-%20probability/05.%20information%20theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    信息论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    机器学习
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    机器学习
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2006%20-%20machine%20learning/01.%20classical%20machine%20learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    经典机器学习
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2006%20-%20machine%20learning/02.%20gradient%20machine%20learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基于梯度的机器学习
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2006%20-%20machine%20learning/03.%20deep%20learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    深度学习
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2006%20-%20machine%20learning/04.%20reinforcement%20learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    强化学习
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2006%20-%20machine%20learning/05.%20distributed%20deep%20learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    分布式深度学习
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算语言学
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    计算语言学
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2007%20-%20computational%20linguistics/01.%20linguistic%20foundations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    语言学基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2007%20-%20computational%20linguistics/02.%20text%20processing%20and%20classic%20NLP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文本处理与经典自然语言处理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2007%20-%20computational%20linguistics/03.%20embeddings%20and%20sequence%20models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    词嵌入与序列模型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2007%20-%20computational%20linguistics/04.%20transformers%20and%20language%20models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformer 与语言模型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2007%20-%20computational%20linguistics/05.%20advanced%20text%20generation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高级文本生成
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机视觉
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    计算机视觉
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2008%20-%20computer%20vision/01.%20image%20fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    图像基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2008%20-%20computer%20vision/02.%20convolutional%20networks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    卷积神经网络
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2008%20-%20computer%20vision/03.%20object%20detection%20and%20segmentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    目标检测与分割
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2008%20-%20computer%20vision/04.%20vision%20transformers%20and%20generation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    视觉 Transformer 与生成
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2008%20-%20computer%20vision/05.%20video%20and%203D%20vision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    视频与三维视觉
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    音频与语音
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    音频与语音
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2009%20-%20audio%20and%20speech/01.%20digital%20signal%20processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数字信号处理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2009%20-%20audio%20and%20speech/02.%20automatic%20speech%20recognition/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    自动语音识别
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2009%20-%20audio%20and%20speech/03.%20text%20to%20speech%20and%20voice/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文本转语音与声音
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2009%20-%20audio%20and%20speech/04.%20speaker%20and%20audio%20analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    说话人和音频分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2009%20-%20audio%20and%20speech/05.%20source%20separation%20and%20noise/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    源分离与降噪
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    多模态学习
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    多模态学习
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2010%20-%20multimodal%20learning/01.%20multimodal%20representations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    多模态表示
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2010%20-%20multimodal%20learning/02.%20vision%20language%20models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    视觉语言模型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2010%20-%20multimodal%20learning/03.%20image%20and%20video%20tokenisation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    图像与视频词元化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2010%20-%20multimodal%20learning/04.%20cross-modal%20generation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    跨模态生成
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2010%20-%20multimodal%20learning/05.%20unified%20multimodal%20architectures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    统一多模态架构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    自主系统
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    自主系统
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01.%20perception/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    感知
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02.%20robot%20learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    机器人学习
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03.%20vision-language-action%20models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    视觉-语言-动作模型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    自动驾驶
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    自动驾驶
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        自动驾驶技术栈
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        高精地图
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        运动预测
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        规划
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        端到端驾驶
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        用于驾驶的世界模型
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        仿真
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        安全
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        自动化等级
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#colab-notebook" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        编程任务（使用 CoLab 或 Notebook）
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05.%20space%20and%20extreme%20robotics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    太空与极端环境机器人
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    图神经网络
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    图神经网络
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2012%20-%20graph%20neural%20networks/01.%20geometric%20deep%20learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    几何深度学习
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2012%20-%20graph%20neural%20networks/02.%20graph%20theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    图论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2012%20-%20graph%20neural%20networks/03.%20graph%20neural%20networks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    图神经网络
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2012%20-%20graph%20neural%20networks/04.%20graph%20attention%20networks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    图注意力网络
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2012%20-%20graph%20neural%20networks/05.%203d%20graph%20networks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    三维图网络
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算与操作系统
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    计算与操作系统
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2013%20-%20computing%20and%20OS/01.%20discrete%20maths/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    离散数学
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2013%20-%20computing%20and%20OS/02.%20computer%20architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机体系结构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2013%20-%20computing%20and%20OS/03.%20operating%20systems/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    操作系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2013%20-%20computing%20and%20OS/04.%20concurrency%20and%20parallelism/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    并发与并行
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2013%20-%20computing%20and%20OS/05.%20programming%20languages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编程语言
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据结构与算法
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_15">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    数据结构与算法
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2014%20-%20data%20structures%20and%20algorithms/00.%20foundations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基础：大 O、递归、回溯与动态规划
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2014%20-%20data%20structures%20and%20algorithms/01.%20arrays%20and%20hashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数组与哈希
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2014%20-%20data%20structures%20and%20algorithms/02.%20linked%20lists%2C%20stacks%2C%20and%20queues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    链表、栈与队列
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2014%20-%20data%20structures%20and%20algorithms/03.%20trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    树
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2014%20-%20data%20structures%20and%20algorithms/04.%20graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2014%20-%20data%20structures%20and%20algorithms/05.%20sorting%20and%20search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    排序、搜索与算法设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_16" >
+        
+          
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    生产软件工程
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    生产软件工程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2015%20-%20production%20software%20engineering/01.%20linux%20and%20CMD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux 与命令行
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2015%20-%20production%20software%20engineering/02.%20git%20and%20repository%20management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git 与仓库管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2015%20-%20production%20software%20engineering/03.%20codebase%20design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    代码库设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2015%20-%20production%20software%20engineering/04.%20testing%20and%20quality%20assurance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    测试与质量保证
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2015%20-%20production%20software%20engineering/05.%20deployment%20and%20devops/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    部署与 DevOps
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_17" >
+        
+          
+          <label class="md-nav__link" for="__nav_17" id="__nav_17_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SIMD 与 GPU 编程
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_17_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_17">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SIMD 与 GPU 编程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2016%20-%20SIMD%20and%20GPU%20programming/00.%20why%20C%2B%2B%20and%20how%20ML%20frameworks%20work/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    为什么使用 C++，机器学习框架如何工作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2016%20-%20SIMD%20and%20GPU%20programming/01.%20hardware%20fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    硬件基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2016%20-%20SIMD%20and%20GPU%20programming/02.%20ARM%20and%20NEON/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ARM 与 NEON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2016%20-%20SIMD%20and%20GPU%20programming/03.%20x86%20and%20AVX/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    x86 与 AVX
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2016%20-%20SIMD%20and%20GPU%20programming/04.%20GPU%20architecture%20and%20CUDA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPU 架构与 CUDA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2016%20-%20SIMD%20and%20GPU%20programming/05.%20triton%2C%20TPUs%20and%20pallax/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Triton、TPU 与 Pallas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2016%20-%20SIMD%20and%20GPU%20programming/06.%20RISC-V%20and%20embedded%20systems/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RISC-V 与嵌入式系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2016%20-%20SIMD%20and%20GPU%20programming/07.%20vulkan%20compute%20and%20cross-platform%20GPU/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vulkan Compute 与跨平台 GPU
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_18" >
+        
+          
+          <label class="md-nav__link" for="__nav_18" id="__nav_18_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI 推理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_18_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_18">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AI 推理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2017%20-%20AI%20inference/01.%20quantisation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    量化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2017%20-%20AI%20inference/02.%20efficient%20architectures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高效架构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2017%20-%20AI%20inference/03.%20serving%20and%20batching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    服务与批处理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2017%20-%20AI%20inference/04.%20edge%20inference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    边缘推理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2017%20-%20AI%20inference/05.%20scaling%20and%20deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    扩展与部署
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_19" >
+        
+          
+          <label class="md-nav__link" for="__nav_19" id="__nav_19_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML 系统设计
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_19_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_19">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ML 系统设计
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2018%20-%20ML%20systems%20design/01.%20systems%20design%20fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统设计基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2018%20-%20ML%20systems%20design/02.%20cloud%20computing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    云计算
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2018%20-%20ML%20systems%20design/03.%20large%20scale%20infrastructure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    大规模基础设施
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2018%20-%20ML%20systems%20design/04.%20ML%20systems%20design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML 系统设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2018%20-%20ML%20systems%20design/05.%20ML%20design%20examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML 设计案例
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_20" >
+        
+          
+          <label class="md-nav__link" for="__nav_20" id="__nav_20_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    应用 AI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_20_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_20">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    应用 AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2019%20-%20applied%20AI/01.%20AI%20for%20finance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    金融 AI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2019%20-%20applied%20AI/02.%20protein%20design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    生物学 AI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2019%20-%20applied%20AI/03.%20drug%20discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    药物发现
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2019%20-%20applied%20AI/04.%20agentic%20systems/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    智能体系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2019%20-%20applied%20AI/05.%20healthcare/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    医疗健康
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_21" >
+        
+          
+          <label class="md-nav__link" for="__nav_21" id="__nav_21_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    前沿 AI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_21_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_21">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    前沿 AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2020%20-%20bleeding%20edge%20AI/01.%20quantum%20machine%20learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    量子机器学习
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2020%20-%20bleeding%20edge%20AI/02.%20neuromorphic%20computing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    神经形态计算
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2020%20-%20bleeding%20edge%20AI/03.%20datacentres%20in%20space/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    太空数据中心
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2020%20-%20bleeding%20edge%20AI/04.%20decentralised%20AI/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    去中心化 AI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chapter%2020%20-%20bleeding%20edge%20AI/05.%20brain%20machine%20interfaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    脑机接口
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        自动驾驶技术栈
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        高精地图
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        运动预测
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        规划
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        端到端驾驶
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        用于驾驶的世界模型
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        仿真
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        安全
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        自动化等级
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#colab-notebook" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        编程任务（使用 CoLab 或 Notebook）
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="_1">自动驾驶汽车<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p><em>自动驾驶汽车是商业化程度最高的自主系统，将感知、预测、规划和控制集成到一辆车中。本节介绍自动驾驶技术栈、高精地图、运动预测、规划、端到端驾驶、仿真、安全标准与自动化等级。</em></p>
+<ul>
+<li>自动驾驶汽车可以说是当前正在大规模攻克的最难机器人问题。工厂机器人在受控环境中工作，而自动驾驶汽车必须应对开放世界：不可预测的人类驾驶员、横穿马路的行人、一夜之间出现的施工区，以及每分钟都在变化的天气。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>工厂里环境可控，路上却什么都可能发生。自动驾驶要在陌生、变化快且有人类参与的世界里持续做正确决定。</p>
+</div>
+<ul>
+<li>它的风险也格外高。自动驾驶汽车以高速公路速度在弱势道路使用者之间行驶。对于安全关键故障，允许的误差几乎为零。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>车辆速度快、周围有人，错误的后果很重。这里不是“准确率差一点也没关系”的应用，系统必须把安全放在第一位。</p>
+</div>
+<h2 id="_2">自动驾驶技术栈<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>经典的自动驾驶架构是一条<strong>模块化流水线（modular pipeline）</strong>，包含四个依次衔接的阶段：</li>
+</ul>
+<div class="arithmatex">\[\text{Perception} \to \text{Prediction} \to \text{Planning} \to \text{Control}\]</div>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>自动驾驶的传统流程很清楚：先看见环境，再猜别人怎么动，然后决定自己路线，最后把路线变成方向盘和刹车命令。</p>
+</div>
+<p><img alt="自动驾驶技术栈：传感器输入感知，感知依次馈送至预测、规划，最终到控制" src="../../images/autonomous_driving_stack.svg" /></p>
+<ul>
+<li><strong>感知（Perception）</strong>（本章第 1 节已介绍）将原始传感器数据处理为结构化场景表示：带有三维位置、速度和类别标签的检测目标；车道线；交通信号灯；可行驶区域边界。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>感知负责把相机、雷达和 LiDAR 的原始信号翻成“哪里有车、人、车道和红绿灯”的结构化地图。</p>
+</div>
+<ul>
+<li><strong>预测（Prediction）</strong>预报其他参与体（车辆、行人、骑行者）未来会如何运动。给定场景当前状态，预测模块输出各参与体在一个时间范围内的轨迹，通常是未来 3--8 秒。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>预测负责提前想：前车会不会变道、行人会不会过街。它给后面的规划器留出反应时间。</p>
+</div>
+<ul>
+<li><strong>规划（Planning）</strong>决定自车应当做什么：沿哪条路径行驶、何时变道、何时让行、何时加速或制动。它接收预测后的场景，并生成一条安全、舒适且朝目的地推进的自车轨迹。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>规划是决策层：综合道路规则、目的地和其他人的可能运动，选出自己接下来该怎样走。</p>
+</div>
+<ul>
+<li><strong>控制（Control）</strong>把规划轨迹转换为执行器命令：转向角、油门和制动。这是最底层，将抽象轨迹转化为物理运动。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>控制不再讨论该不该转弯，而是精确执行“方向盘转多少、油门踩多少、刹车多大”。</p>
+</div>
+<ul>
+<li>模块化设计有明确的工程优势：每个模块都可独立开发、测试和改进。但它也有弱点：错误会向下游传播（漏检对规划器不可见），而且每个接口都会损失信息（规划器看到的是边界框，而不是产生边界框的丰富传感器数据）。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>分模块易排查问题，但前一环漏掉行人，后面再聪明也看不见；同时每次交接都会把丰富信息压缩掉一些。</p>
+</div>
+<h2 id="_3">高精地图<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>高精地图（High-Definition, HD maps）</strong>是精细到厘米级精度的数字地图，编码道路结构：车道边界、车道连通关系（在路口哪条车道接到哪条车道）、交通标志位置、限速、人行横道位置和路面高程。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>高精地图不是普通导航图，而是把车道线、路口连接和标志位置都精确记下来的道路底稿。</p>
+</div>
+<ul>
+<li>高精地图为驾驶任务提供了强先验。感知模块不必每一帧都从零发现车道边界；它只需在地图中定位车辆，并确认现实与已存储的结构相符。这会大幅简化规划。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>有地图时，车辆已经知道道路大概结构，只需核对现场有没有变化。这样看车道和做规划都轻松很多。</p>
+</div>
+<ul>
+<li>构建高精地图需要配备高端激光雷达（LiDAR）、相机和 RTK-GPS 的专用测绘车辆。道路变化时，地图还必须维护和更新。这很昂贵，也难以扩展到地球上的每一条道路。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>高精地图好用但贵：每条路都要精测，施工或改道后还要重新维护，规模扩大后成本很高。</p>
+</div>
+<ul>
+<li><strong>无地图驾驶（Mapless driving）</strong>，也称“在线建图（online mapping）”，旨在消除对预建高精地图的依赖。车辆改为从传感器实时构建局部地图。<strong>MapTR</strong>、<strong>MapTRv2</strong> 等模型使用 Transformer 架构，直接从相机图像预测矢量化地图元素（车道中心线、道路边界、人行横道），并以有序点序列形式输出折线。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>无地图方案让车辆边开边理解当前道路，不必等地图先铺好。它更易覆盖新地方，但更依赖实时感知足够可靠。</p>
+</div>
+<ul>
+<li>无地图方法以地图精度换取可扩展性：车辆能驶过的任何道路都能建图。但这要求感知系统足够鲁棒，能实时检测全部相关道路结构，复杂路口、高速匝道和施工区也不例外。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>不靠预建地图意味着哪里都能去，但每一次都必须现场看对。路况最复杂的时候，也正是这种方案压力最大的时候。</p>
+</div>
+<ul>
+<li>实践中，许多系统采用混合方法：以带有粗粒度道路拓扑的轻量地图（来自现有地图提供商）为基础，再由车辆传感器实时补充。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>混合方案先用普通地图知道大方向，再用车上感知补车道和临时变化，兼顾覆盖范围与可靠性。</p>
+</div>
+<h2 id="_4">运动预测<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<ul>
+<li>预测其他道路使用者会去往何处，是自动驾驶中最难的子问题之一。人不可预测，意图不可见，而可能的未来会迅速分叉。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>最难的不是看见别人在哪，而是知道他们下一秒想干什么。人可能突然转弯、停车或横穿，未来本来就不止一种。</p>
+</div>
+<ul>
+<li>预测模型的输入是<strong>场景上下文（scene context）</strong>：最近一段时间内（通常 1--2 秒历史）全部检测参与体的位置和速度，以及静态上下文（车道几何、交通信号、道路边界）。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>预测不只看当前一帧，还要看最近怎么动，以及道路、信号灯允许往哪走，才能做出合理推断。</p>
+</div>
+<ul>
+<li>输出是每个参与体的一组<strong>预测轨迹（predicted trajectories）</strong>，通常覆盖未来 3--8 秒。未来存在不确定性，因此好的预测模型会输出多条带有关联概率的可能轨迹，而不是单点估计。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>好预测不会装作未来唯一确定，而会给出多个可能走向和把握程度，让规划器对每种风险都留余地。</p>
+</div>
+<ul>
+<li>将<strong>轨迹预测（trajectory forecasting）</strong>视为回归问题：预测每个参与体在离散未来时间步的 <span class="arithmatex">\((x, y)\)</span> 坐标。损失通常是在 <span class="arithmatex">\(K\)</span> 条预测轨迹上的最小平均位移误差（minADE）：</li>
+</ul>
+<div class="arithmatex">\[\text{minADE}_K = \min_{k \in \{1, \ldots, K\}} \frac{1}{T} \sum_{t=1}^{T} \| \hat{\mathbf{p}}_t^{(k)} - \mathbf{p}_t \|_2\]</div>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>模型一次给多条未来轨迹，minADE 只看其中最接近真实的一条。这鼓励模型把不同可能性都覆盖到。</p>
+</div>
+<ul>
+<li>这是“<span class="arithmatex">\(K\)</span> 选最佳”指标：只要 <span class="arithmatex">\(K\)</span> 条预测中任一条接近真实值，模型就能得分。它鼓励多样化、多模态预测。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>指标认可“我不确定，但我把正确可能性列出来了”。这比只押一条轨迹更符合真实交通的不确定性。</p>
+</div>
+<ul>
+<li><strong>社会力（social forces）</strong>把行人行为建模为一个动力系统：每个人受到吸引力（指向自身目标）和排斥力（远离其他行人与障碍物）。第 <span class="arithmatex">\(i\)</span> 个人的加速度为：</li>
+</ul>
+<div class="arithmatex">\[\mathbf{a}_i = \frac{\mathbf{v}_i^{\text{desired}} - \mathbf{v}_i}{\tau} + \sum_{j \neq i} \mathbf{f}_{ij}^{\text{repulsive}} + \sum_{\text{walls}} \mathbf{f}_{\text{wall}}\]</div>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>社会力模型把人看成既想朝目的地走、又会躲开别人和墙的粒子，用几个力的合成来模拟群体移动。</p>
+</div>
+<ul>
+<li>这是一个微分方程组，与本章第 2 节的机器人动力学方程相似。该模型很优雅，但依赖手工调节的力参数，且难以处理复杂的多参与体交互。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>这种模型直观但规则很简化。真实人会犹豫、示意、抢行，靠固定吸引力和排斥力很难完整描述。</p>
+</div>
+<ul>
+<li>用于预测的<strong>图神经网络（Graph Neural Networks, GNNs）</strong>把场景建模为图：每个参与体是一个节点，边表示空间关系（邻近、共用车道）。节点间的消息传递捕捉交互关系，例如“这辆车正在给那个行人让行”或“这两辆车正汇入同一条车道”。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>GNN 把每辆车、每个人当成节点，让它们交换邻近和路权信息，因此能理解“谁在让谁、谁会冲突”。</p>
+</div>
+<ul>
+<li>现代预测架构（如 <strong>MTR</strong>、<strong>QCNet</strong>）使用基于 Transformer 的模型，同时推理参与体历史、地图上下文和参与体间交互。参与体经由交叉注意力关注相关地图特征（当前车道、即将到来的路口）和其他参与体（前车、人行横道上的行人）。输出是一组通过自回归方式或混合模型生成的轨迹假设。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>Transformer 让每个参与体同时参考自己的历史、道路结构和关键邻居，再生成多条未来假设，适合复杂路口等交互场景。</p>
+</div>
+<ul>
+<li><strong>目标条件预测（goal-conditioned prediction）</strong>先预测参与体可能去往哪里，即一组候选目标点，如车道终点或路口出口；再预测达到每个目标的轨迹。它把问题拆成“去哪里”（离散且可处理）和“怎么去”（给定目标时的连续路径），从而使多模态预测问题更易处理。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>先猜别人可能去哪个出口或车道，再规划怎么到那里，比直接从无数曲线中猜完整轨迹更容易。</p>
+</div>
+<h2 id="_5">规划<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<ul>
+<li>给定预测后的场景，规划器必须为自车生成一条轨迹。这是一个约束优化问题：寻找一条安全、舒适、高效且合法的轨迹。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>规划器不是只找最快路线，而是在不撞车、不违法、不让乘客难受的前提下尽量往目的地走。</p>
+</div>
+<ul>
+<li><strong>基于规则的规划器（rule-based planners）</strong>将驾驶行为编码为一组 if-then 规则：“若行人在斑马线上，则让行”“若与前车的间隙小于 2 秒，则不变道”“若接近红灯，则减速并在停止线前停车”。这些规则可解释、可审计，但面对复杂场景会变得难以驾驭：规则可能数以千计，边界情况很多，规则之间还会相互作用。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>规则规划器像一本极长的驾驶手册，优点是每个决定说得清；缺点是现实边界情况太多，规则容易互相打架。</p>
+</div>
+<ul>
+<li><strong>基于优化的规划器（optimisation-based planners）</strong>把驾驶表述为轨迹优化。自车轨迹被参数化，例如表示为未来时间步 <span class="arithmatex">\((x, y, \theta, v)\)</span> 状态序列，并最小化目标函数：</li>
+</ul>
+<div class="arithmatex">\[\min_{\boldsymbol{\xi}} \underbrace{w_1 \cdot J_{\text{progress}}(\boldsymbol{\xi})}_{\text{get to destination}} + \underbrace{w_2 \cdot J_{\text{comfort}}(\boldsymbol{\xi})}_{\text{smooth ride}} + \underbrace{w_3 \cdot J_{\text{safety}}(\boldsymbol{\xi})}_{\text{avoid collisions}}\]</div>
+<div class="arithmatex">\[\text{subject to: } \text{kinematic constraints, speed limits, lane boundaries}\]</div>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>优化规划器同时比较很多候选轨迹，用一个总分权衡到达速度、乘坐舒适和避碰，并强制遵守车辆能力和道路边界。</p>
+</div>
+<ul>
+<li>进度项惩罚偏离期望路线；舒适性项惩罚较大的横向加速度、加加速度（jerk，速度的导数）和突兀转向，因为乘客会感受到这些；安全项借助预测轨迹评估碰撞风险，惩罚与其他参与体过近。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>快速到达、平稳乘坐和安全距离常常互相冲突。代价项把这些真实取舍明确量化，让系统不能只顾赶路。</p>
+</div>
+<ul>
+<li>这就是第 3 章的约束优化：在不等式约束下最小化代价函数。权重 <span class="arithmatex">\(w_1, w_2, w_3\)</span> 在相互竞争的目标之间权衡，激进驾驶更快，却更不舒适也更不安全。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>权重相当于驾驶风格旋钮。把进度权重调太高，车会更激进；把安全和舒适权重调高，车会更保守和平稳。</p>
+</div>
+<ul>
+<li><strong>基于学习的规划器（learning-based planners）</strong>使用在人类驾驶数据上训练的神经网络来生成轨迹。模型观察场景，直接输出规划轨迹，并从专家人类驾驶示例中隐式学习复杂取舍。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>学习式规划不把每条驾驶经验写成规则，而是从人类驾驶记录里模仿哪些情况下该等、该让和该并线。</p>
+</div>
+<ul>
+<li>它的优点是能整体捕捉人类驾驶行为，包括那些微妙、难以形式化的方面：多激进地汇入、何时在路口缓慢向前探、应给骑行者留出多少空间。缺点与第 2 节模仿学习中的分布偏移问题相同：模型在训练数据未充分覆盖的场景中可能出现不可预测行为。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>人类驾驶里有很多默会经验，学习模型更容易吸收；但没见过的场景一来，它也可能像只学过示范的学生一样不知如何应对。</p>
+</div>
+<h2 id="_6">端到端驾驶<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>端到端驾驶（end-to-end driving）</strong>彻底移除模块边界。单一神经网络接收原始传感器输入（相机图像、激光雷达点云），直接输出驾驶命令（转向、油门、制动）或规划轨迹，不再分设感知、预测和规划模块。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>端到端驾驶把“看、猜、规划”合在同一网络里，直接从传感器输入得到驾驶动作或轨迹。</p>
+</div>
+<ul>
+<li>它的吸引力在于，整个系统围绕最终任务（安全驾驶）进行联合优化，因而信息不会在模块边界丢失。感知模块学习提取规划器真正需要的特征，而不是可能遗漏任务相关细节的通用目标检测结果。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>统一训练让前面的视觉特征直接为最终驾驶目标服务，少了模块之间传递边界框时的信息损失。</p>
+</div>
+<ul>
+<li><strong>UniAD</strong>（Unified Autonomous Driving）是具有标志性的端到端架构。它通过 BEV 编码器处理多相机图像，再串联使用基于 Transformer 的模块：跟踪、在线建图、运动预测、占据预测和规划。虽然它有内部模块，但它们都可微，且以端到端方式联合训练，规划损失会通过整个网络反向传播。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>UniAD 仍保留便于理解的内部功能，但所有部分能一起反向传播，因此最终规划失败会反过来指导前面的感知该学什么。</p>
+</div>
+<ul>
+<li>UniAD 的规划模块通过关注预测的 BEV 特征、预测的参与体轨迹和预测占据，生成未来自车航点。这正是多元链式法则（第 3 章）的实际应用：梯度从规划损失一路流回图像编码器，告诉感知特征怎样才能更有利于规划。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>若规划出的路线不好，训练信号会一路传回最前面的图像编码器，让它逐渐学会提供对驾驶更有用的视觉信息。</p>
+</div>
+<ul>
+<li>更新近的端到端方法使用 VLA 风格架构（本章第 3 节）。<strong>DriveVLM</strong> 等模型接收相机图像和导航指令（或路线），借助 VLM 主干生成驾驶动作。这将大规模预训练带来的视觉理解与推理能力直接带入驾驶技术栈。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>DriveVLM 把驾驶也看成视觉、语言和动作联合任务，试图把大模型已有的场景理解和推理能力直接用于开车。</p>
+</div>
+<ul>
+<li>端到端驾驶的矛盾在于<strong>可解释性（interpretability）</strong>。模块化系统可以报告“我在 (x, y) 检测到一名行人，并预测其将横穿道路”，因此失效模式可诊断。端到端系统则是输出转向角的黑箱。一旦失败，很难诊断原因，这对安全认证是严重问题。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>端到端能减少接口损失，却更难回答“为什么刚才转错了”。安全关键系统里，不能解释和复现故障会严重阻碍验证。</p>
+</div>
+<h2 id="_7">用于驾驶的世界模型<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>世界模型（world model）</strong>学习在当前状态与自车动作条件下预测驾驶场景的未来状态：<span class="arithmatex">\(p(s_{t+1} \mid s_t, a_t)\)</span>（第 10 章已引入）。在驾驶中，这意味着生成逼真的未来帧或 BEV 布局：“若我加速并向左转向，3 秒后场景会是这样。”</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>驾驶世界模型让车辆先在内部预演“我这样加速或转向，几秒后周围会怎样”，再决定要不要真的执行。</p>
+</div>
+<ul>
+<li>世界模型为自动驾驶提供两项强大能力：</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>它一方面帮助车辆在脑中比较多个驾驶方案，另一方面能作为更接近真实数据的模拟器来做测试。</p>
+<ul>
+<li>
+<p><strong>基于想象的规划（imagination-based planning）</strong>：规划器不必先执行一个动作再看结果，而是可以通过世界模型展开多条候选轨迹来“想象”，逐条评估安全性和舒适性，再选择最佳轨迹。这是应用于驾驶的基于模型强化学习（model-based RL，本章第 2 节）。</p>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>车辆可以先在内部比较“现在并线、稍后并线、继续跟车”的后果，再选风险最低的一条。</p>
+</div>
+</li>
+<li>
+<p><strong>学习式仿真（learned simulation）</strong>：在真实驾驶数据上训练的世界模型，本质上是数据驱动模拟器。它无需手工构建模拟器的工作量，就能生成逼真场景，包括罕见边界情况。关键在于，它捕捉真实驾驶的统计规律：其他驾驶员实际如何驾驶、光照如何变化、下雨如何影响能见度。</p>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>从真实日志学出的模拟器可自动带上真实驾驶习惯和天气变化，有机会生成手工规则难写出的罕见情境。</p>
+</div>
+</li>
+</ul>
+</div>
+<ul>
+<li><strong>GAIA-1</strong>（Wayve）是用于驾驶的生成式世界模型。给定一段过去的相机帧和自车动作，它自回归地生成未来视频帧。它使用以动作输入为条件的视频扩散架构。车辆遵守交通规则、行人走在人行道上、信号灯正确切换等合理未来，均由训练数据涌现，而非由规则编程而来。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>GAIA-1 根据过去画面和车辆动作生成未来画面，许多交通常识不是硬编码，而是从大量真实驾驶数据中学出来的。</p>
+</div>
+<ul>
+<li><strong>DriveDreamer</strong> 和 <strong>GenAD</strong>采用类似方法，但在 BEV 空间而非像素空间中运行。预测未来 BEV 布局比生成完整视频帧更紧凑，这与本章第 2 节所述的 DreamerV3 在潜在空间而非像素空间中预测相似。BEV 世界模型预测所有参与体的位置、道路结构的形态以及自由空间的位置，规划器直接使用这些结果。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>在俯视语义空间预测，不必费力画出每片云和每个纹理，只保留车辆位置、道路和可通行空间等规划真正需要的信息。</p>
+</div>
+<ul>
+<li><strong>神经闭环仿真（neural closed-loop simulation）</strong>用世界模型替代用于测试的手工模拟器。以真实驾驶日志为起点，世界模型会生成若自车采取不同动作将会发生什么。这使反事实评估成为可能，例如“若我晚 0.5 秒制动会怎样？”，而无须在物理世界重现场景。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>闭环世界模型可以问“如果当时换一种操作会怎样”，不用真的在路上冒险重演危险场景。</p>
+</div>
+<ul>
+<li>这与第 10 章的 <strong>JEPA</strong> 框架自然相连。驾驶世界模型无需预测像素级完美的未来，即每个像素精确的 RGB 值；它需要预测对规划有意义的方面：参与体在哪、移动多快、自由空间在哪。嵌入空间预测（JEPA 风格）捕捉这些语义上有意义的属性，不会把能力浪费在精确云层纹理等无关视觉细节上。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>对开车而言，准确知道车和人会不会进入路径，比精确画出云的纹理重要得多。JEPA 式表示把算力放在这些决策关键信息上。</p>
+</div>
+<ul>
+<li>主要挑战是<strong>长时域保真度（long-horizon fidelity）</strong>。世界模型会随时间累积误差：第 2 帧的小错误会使之后全部帧偏移。对驾驶而言，3 秒预测时域足以支撑“现在是否该并线？”等战术决策，但用于路径规划等战略决策所需的 30 秒时域仍不可靠。现有工作通过重新锚定（定期用真实观测重置模型）和不确定性估计（在预测不可靠时发出标记）缓解这一问题。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>预测越长，误差越会滚大。短时间预演能辅助即时决策，但不能把几十秒后的想象当成确定事实，必须不断用真实观测校正。</p>
+</div>
+<h2 id="_8">仿真<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<ul>
+<li>让自动驾驶汽车在真实道路上行驶来测试是必要的，却不够。危险场景，如近碰撞和边界情况，十分罕见，因此按里程测试效率很低。要从统计上证明安全，一辆车需要行驶数亿英里，这不可行。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>真实路测必须做，但危险情况太少。光靠累计公里数等一次罕见事故，既慢又无法证明系统真的安全。</p>
+</div>
+<ul>
+<li><strong>仿真（simulation）</strong>提供不限次数、可控且安全的测试。现实中罕见的场景，如儿童冲入道路、爆胎或突发障碍物，可以在仿真中测试数百万次。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>仿真能把罕见危险场景反复重放，还能系统改变天气、速度和障碍物位置，这是现实道路做不到的规模。</p>
+</div>
+<ul>
+<li><strong>CARLA</strong> 是建立在 Unreal Engine 上的开源驾驶模拟器，提供逼真的城市场景、动态天气、交通参与体和传感器仿真（相机、LiDAR、雷达）。研究者用 CARLA 训练基于 RL 的驾驶智能体，并评估感知算法。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>CARLA 像可编程的虚拟城市，研究者能在里面安全地训练和测试车辆面对交通、天气和各种传感器条件的表现。</p>
+</div>
+<ul>
+<li><strong>nuPlan</strong>（Motional）是闭环规划基准。它不同于开环评估，后者回放记录数据并把规划器输出与人类驾驶员实际轨迹比较；闭环评估会让规划器的决策影响仿真，规划器若决定变道，仿真就会相应演化。它测试反应行为，而不仅是轨迹相似度。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>nuPlan 不是只看模型像不像人类当时的路线，而是让模型真的影响后续场景，检查它能否应对自己动作带来的结果。</p>
+</div>
+<p><img alt="开环只回放日志而不交互；闭环会让模型动作改变仿真状态" src="../../images/open_vs_closed_loop.svg" /></p>
+<ul>
+<li><strong>开环（open-loop）</strong>和<strong>闭环（closed-loop）</strong>评估的区别至关重要：</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>开环只做纸面比对，闭环才让模型真正“开起来”。对驾驶能力来说，后者更接近现实。</p>
+<ul>
+<li>
+<p>开环：回放录制的场景，计算模型输出与人类驾驶员动作的相似程度。设置简单，却可能误导人：一个总预测“直行”的模型在高速公路上误差可能很低，却会在第一个转弯处撞车。</p>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>开环模型可能在大多数直路上拿高分，却没机会暴露它遇到转弯、障碍或自己偏离后会不会失控。</p>
+</div>
+</li>
+<li>
+<p>闭环：模型动作会改变仿真状态，仿真再据此演化。它测试模型从自身错误中恢复、对动态情形做出反应的能力。成本更高，但意义也大得多。</p>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>闭环会把模型自己的决定算进环境变化，因此能检验它是否会把小错误救回来，而不是只会跟随历史答案。</p>
+</div>
+</li>
+</ul>
+</div>
+<ul>
+<li><strong>场景生成（scenario generation）</strong>创建能给系统施压的测试用例。对抗场景，如车辆突然制动、停放车辆后方藏有行人，通过优化自动驾驶系统表现最差的情形生成。这与第 6 章机器学习中的对抗训练相关：寻找使损失最大的输入。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>场景生成不是随机挑题，而是主动寻找最容易让系统出错的情况，用这些难题逼出漏洞。</p>
+</div>
+<h2 id="_9">安全<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<ul>
+<li>自动驾驶安全受工程标准约束，而不只由机器学习指标决定。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>模型分数再高也不等于能上路。汽车安全还要满足系统工程标准、故障处理和可验证性要求。</p>
+</div>
+<ul>
+<li><strong>ISO 26262</strong>（功能安全，Functional Safety）是面向安全关键电子系统的汽车标准。它根据潜在危害的严重度、暴露概率和可控性，定义从 A（最低）到 D（最高）的<strong>汽车安全完整性等级（Automotive Safety Integrity Levels, ASILs）</strong>。自动驾驶系统的感知和规划组件通常为最高的 ASIL-D，要求进行广泛验证、冗余设计和失效安全设计。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>ISO 26262 按事故后果和发生条件给部件划安全等级。自动驾驶核心通常要求最高等级，不能只靠“模型大概不错”。</p>
+</div>
+<ul>
+<li><strong>SOTIF</strong>（预期功能安全，Safety of the Intended Functionality，ISO 21448）处理另一类危害：不是 ISO 26262 所涵盖的硬件故障，而是系统按设计工作却仍产生不安全结果的情况。感知模型将白色卡车误判为天空（真实事件）属于 SOTIF 问题：硬件正常，算法局限却造成危害。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>SOTIF 关注“硬件没坏但系统还是理解错了”的风险。算法把东西看错，同样可能出事故，不能只检查元器件是否正常。</p>
+</div>
+<ul>
+<li><strong>运行设计域（Operational Design Domain, ODD）</strong>定义自动驾驶系统的设计运行条件：特定地理区域、道路类型（仅高速公路、城市道路或两者）、天气条件（无大雪）、速度范围和一天中的时段。不得在 ODD 外运行：系统若无法处理下雪，就不能在雪天驾驶。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>ODD 是系统能力边界说明书。它只承诺在规定地点、天气和速度范围内工作，超出范围就必须退出或交给人类。</p>
+</div>
+<ul>
+<li><strong>失效安全（fail-safe）</strong>与<strong>失效运行（fail-operational）</strong>设计：</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>出故障后有两种目标：最低限度是安全停下，更高要求是在单点故障下仍能继续安全完成处置。</p>
+<ul>
+<li>
+<p>失效安全：检测到故障时，系统转换到安全状态，例如靠边停车。这是最低要求。</p>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>发现不能可靠驾驶时，车辆不再硬撑，而是采取最安全的降级动作，例如减速靠边。</p>
+</div>
+</li>
+<li>
+<p>失效运行：即便发生故障，系统仍借助冗余组件继续安全运行。具有冗余转向、制动和计算平台的自动驾驶汽车，能在单个组件失效后仍驶往安全地点。</p>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>失效运行依赖备份部件接管，让单个传感器或计算机坏掉后车辆仍能安全到达处置地点。</p>
+</div>
+</li>
+</ul>
+</div>
+<ul>
+<li><strong>冗余（redundancy）</strong>是基础。关键感知传感器会重复配置：多个相机覆盖重叠视野，LiDAR 与雷达都提供独立的深度测量，两个计算平台运行同一软件。任何单个组件失效时，其他组件仍能提供足够信息以安全驾驶。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>冗余不是简单多装几个设备，而是确保一个关键部件失效时，仍有独立路径能看见、计算并把车安全带走。</p>
+</div>
+<h2 id="_10">自动化等级<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<p><img alt="SAE 自动化等级：从 L0（无自动化）到 L5（完全自动化），展示安全责任如何由人转移到系统" src="../../images/sae_autonomy_levels.svg" /></p>
+<ul>
+<li><strong>SAE J3016</strong> 标准定义六个驾驶自动化等级，从 0（无自动化）到 5（完全自动化）：</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>自动化等级的关键不只是功能多不多，而是系统在什么范围内替代人，以及出问题时谁必须负责接管。</p>
+<ul>
+<li>
+<p><strong>第 0 级（无自动化，No Automation）</strong>：人类承担全部驾驶工作。系统可以提供警告，如车道偏离提醒，但不控制车辆。</p>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>L0 只有提醒功能，开车、观察和负责都完全由人承担。</p>
+</div>
+</li>
+<li>
+<p><strong>第 1 级（驾驶员辅助，Driver Assistance）</strong>：系统控制转向或速度中的一项，但不能同时控制两项。自适应巡航控制（维持车速与跟车距离）或车道保持辅助（让车辆保持在车道中央）属于第 1 级。</p>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>L1 能帮一件事，例如跟车或扶方向盘，但人仍要负责另一件事和整体驾驶。</p>
+</div>
+</li>
+<li>
+<p><strong>第 2 级（部分自动化，Partial Automation）</strong>：系统同时控制转向和速度，但人类必须始终监控，并准备接管。Tesla Autopilot、GM Super Cruise 及大多数当前所谓“自动驾驶”功能均属第 2 级。人类仍是负责驾驶员。</p>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>L2 虽然能同时控方向和速度，驾驶员仍必须持续盯路并随时接管，责任没有转给系统。</p>
+</div>
+</li>
+<li>
+<p><strong>第 3 级（有条件自动化，Conditional Automation）</strong>：系统驾驶并监控环境，但仅在特定条件，即 ODD 内。人类可以脱离驾驶任务，但必须在系统请求时准备接管，通常有 10 秒以上的时间缓冲。Mercedes Drive Pilot（在特定高速公路、低于 60 km/h 时）是首个获认证的第 3 级系统。</p>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>L3 在限定条件内由系统负责看路和驾驶，人可以暂时不盯路，但系统叫你接管时仍要能回来接手。</p>
+</div>
+</li>
+<li>
+<p><strong>第 4 级（高度自动化，High Automation）</strong>：系统在其 ODD 内驾驶并处理全部情形，无需人类干预。遇到 ODD 外情况时，系统能自行安全停车。Waymo 的无人出租车服务在特定地理区域以第 4 级运行。</p>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>L4 在自己的限定区域内不需要人类接管，离开能力范围时也必须自己安全处置，不把问题抛给乘客。</p>
+</div>
+</li>
+<li>
+<p><strong>第 5 级（完全自动化，Full Automation）</strong>：系统在任何条件下都能在任何人类能驾驶的地方行驶，不需要方向盘或踏板。它尚不存在。</p>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>L5 是任何道路、任何天气都完全自己开，不需要驾驶位的人类能力。目前还没有这样的系统。</p>
+</div>
+</li>
+</ul>
+</div>
+<ul>
+<li>关键区别在于<strong>谁对安全负责</strong>。在第 0--2 级，人类负责；在第 3--5 级，系统在其 ODD 内负责。这会带来深远的法律、保险与伦理影响。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>真正的分界线是责任归谁：L2 以下人负责，L3 以上在规定运行范围内由系统负责，这直接影响法律和保险。</p>
+</div>
+<ul>
+<li>当前行业同时存在广泛部署的第 2 级、刚开始部署的第 3 级，以及地理范围有限的第 4 级。第 5 级仍是长期研究目标。</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">大白话</p>
+<p>市面上大多仍是需要人盯着的 L2；真正不需要人接管的 L4 只在有限区域运行，L5 还没有落地。</p>
+</div>
+<h2 id="colab-notebook">编程任务（使用 CoLab 或 Notebook）<a class="headerlink" href="#colab-notebook" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>实现一个简单的轨迹优化规划器。给定起点、目标和一个障碍物，使用梯度下降找出最平滑的无碰撞路径。
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">jax</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">jax.numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">jnp</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># Trajectory: N waypoints, each (x, y)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">N</span> <span class="o">=</span> <span class="mi">20</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">start</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">goal</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">obstacle</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="n">obs_radius</span> <span class="o">=</span> <span class="mf">1.5</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="c1"># Initialise: straight line from start to goal</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="n">waypoints_init</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">goal</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="k">def</span><span class="w"> </span><span class="nf">cost</span><span class="p">(</span><span class="n">waypoints</span><span class="p">):</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    <span class="n">wp</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">start</span><span class="p">[</span><span class="kc">None</span><span class="p">],</span> <span class="n">waypoints</span><span class="p">,</span> <span class="n">goal</span><span class="p">[</span><span class="kc">None</span><span class="p">]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>    <span class="c1"># Smoothness: penalise acceleration (second differences)</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>    <span class="n">accel</span> <span class="o">=</span> <span class="n">wp</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">wp</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">wp</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>    <span class="n">smooth_cost</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">accel</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>    <span class="c1"># Obstacle avoidance: penalise proximity</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>    <span class="n">dists</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">wp</span> <span class="o">-</span> <span class="n">obstacle</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>    <span class="n">collision_cost</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">jnp</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">obs_radius</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">-</span> <span class="n">dists</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>    <span class="k">return</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">smooth_cost</span> <span class="o">+</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">collision_cost</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="n">grad_cost</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span><span class="n">cost</span><span class="p">)</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="c1"># Optimise the interior waypoints</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="n">waypoints</span> <span class="o">=</span> <span class="n">waypoints_init</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="n">lr</span> <span class="o">=</span> <span class="mf">0.01</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">500</span><span class="p">):</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>    <span class="n">g</span> <span class="o">=</span> <span class="n">grad_cost</span><span class="p">(</span><span class="n">waypoints</span><span class="p">)</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>    <span class="n">waypoints</span> <span class="o">=</span> <span class="n">waypoints</span> <span class="o">-</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">g</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="c1"># Plot</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a><span class="n">full_path</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">start</span><span class="p">[</span><span class="kc">None</span><span class="p">],</span> <span class="n">waypoints</span><span class="p">,</span> <span class="n">goal</span><span class="p">[</span><span class="kc">None</span><span class="p">]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a><span class="n">theta</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a>
+<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">full_path</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">full_path</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;b.-&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Optimised path&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">waypoints_init</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">waypoints_init</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;r--&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Initial (straight)&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a><span class="n">plt</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">obstacle</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">obs_radius</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a>         <span class="n">obstacle</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">obs_radius</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Obstacle&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">*</span><span class="n">start</span><span class="p">,</span> <span class="s2">&quot;go&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">*</span><span class="n">goal</span><span class="p">,</span> <span class="s2">&quot;g*&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Trajectory Optimisation: Smooth Collision-Free Path&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>模拟一个恒定速度运动预测模型，并将其结果与转弯车辆的真实轨迹比较。
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">jax.numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">jnp</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Ground truth: vehicle turning right</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">dt</span> <span class="o">=</span> <span class="mf">0.1</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">T</span> <span class="o">=</span> <span class="mi">40</span>  <span class="c1"># 4 seconds</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="n">v</span> <span class="o">=</span> <span class="mf">10.0</span>  <span class="c1"># m/s</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="n">omega</span> <span class="o">=</span> <span class="mf">0.3</span>  <span class="c1"># rad/s (turning rate)</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="c1"># True trajectory (constant turn rate)</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="n">t</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="o">*</span> <span class="n">dt</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="n">theta</span> <span class="o">=</span> <span class="n">omega</span> <span class="o">*</span> <span class="n">t</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="n">gt_x</span> <span class="o">=</span> <span class="p">(</span><span class="n">v</span> <span class="o">/</span> <span class="n">omega</span><span class="p">)</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="n">gt_y</span> <span class="o">=</span> <span class="p">(</span><span class="n">v</span> <span class="o">/</span> <span class="n">omega</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">jnp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">))</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="c1"># Constant velocity prediction from t=0</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="c1"># Assumes the car continues straight at its current heading</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="n">obs_steps</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1"># observe first 1 second</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="n">vx0</span> <span class="o">=</span> <span class="n">v</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">[</span><span class="n">obs_steps</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="n">vy0</span> <span class="o">=</span> <span class="n">v</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">[</span><span class="n">obs_steps</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="n">pred_t</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">T</span> <span class="o">-</span> <span class="n">obs_steps</span><span class="p">)</span> <span class="o">*</span> <span class="n">dt</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="n">pred_x</span> <span class="o">=</span> <span class="n">gt_x</span><span class="p">[</span><span class="n">obs_steps</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">vx0</span> <span class="o">*</span> <span class="n">pred_t</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="n">pred_y</span> <span class="o">=</span> <span class="n">gt_y</span><span class="p">[</span><span class="n">obs_steps</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">vy0</span> <span class="o">*</span> <span class="n">pred_t</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gt_x</span><span class="p">[:</span><span class="n">obs_steps</span><span class="p">],</span> <span class="n">gt_y</span><span class="p">[:</span><span class="n">obs_steps</span><span class="p">],</span> <span class="s2">&quot;ko-&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Observed&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gt_x</span><span class="p">[</span><span class="n">obs_steps</span><span class="p">:],</span> <span class="n">gt_y</span><span class="p">[</span><span class="n">obs_steps</span><span class="p">:],</span> <span class="s2">&quot;g-&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True future&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pred_x</span><span class="p">,</span> <span class="n">pred_y</span><span class="p">,</span> <span class="s2">&quot;r--&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Constant velocity prediction&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;x (m)&quot;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;y (m)&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Constant Velocity Prediction vs Turning Vehicle&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>实现一个简单的基于规则的规划器，根据检测到的障碍物决定保持车道还是停车。
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">jax.numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">jnp</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">rule_based_planner</span><span class="p">(</span><span class="n">ego_speed</span><span class="p">,</span> <span class="n">obstacles</span><span class="p">,</span> <span class="n">speed_limit</span><span class="o">=</span><span class="mf">13.9</span><span class="p">):</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="sd">    Simple rule-based planner.</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="sd">    ego_speed: current speed (m/s)</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="sd">    obstacles: list of (distance, speed) tuples for vehicles ahead</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="sd">    speed_limit: max allowed speed (m/s), default ~50 km/h</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="sd">    Returns: (target_speed, action_label)</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    <span class="n">min_following_distance</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">ego_speed</span>  <span class="c1"># 2-second rule</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="n">emergency_distance</span> <span class="o">=</span> <span class="mf">5.0</span>  <span class="c1"># metres</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">obstacles</span><span class="p">:</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>        <span class="k">return</span> <span class="n">speed_limit</span><span class="p">,</span> <span class="s2">&quot;cruise&quot;</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>    <span class="c1"># Find closest obstacle ahead</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>    <span class="n">closest_dist</span><span class="p">,</span> <span class="n">closest_speed</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">obstacles</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">o</span><span class="p">:</span> <span class="n">o</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>    <span class="k">if</span> <span class="n">closest_dist</span> <span class="o">&lt;</span> <span class="n">emergency_distance</span><span class="p">:</span>
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>        <span class="k">return</span> <span class="mf">0.0</span><span class="p">,</span> <span class="s2">&quot;EMERGENCY STOP&quot;</span>
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>    <span class="k">elif</span> <span class="n">closest_dist</span> <span class="o">&lt;</span> <span class="n">min_following_distance</span><span class="p">:</span>
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>        <span class="c1"># Match speed of vehicle ahead</span>
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>        <span class="n">target</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">closest_speed</span><span class="p">,</span> <span class="n">speed_limit</span><span class="p">)</span>
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>        <span class="k">return</span> <span class="n">target</span><span class="p">,</span> <span class="s2">&quot;following&quot;</span>
+<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>        <span class="k">return</span> <span class="n">speed_limit</span><span class="p">,</span> <span class="s2">&quot;cruise&quot;</span>
+<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>
+<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a><span class="c1"># Test scenarios</span>
+<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a><span class="n">scenarios</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a>    <span class="p">(</span><span class="mf">13.9</span><span class="p">,</span> <span class="p">[],</span> <span class="s2">&quot;Empty road&quot;</span><span class="p">),</span>
+<a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a>    <span class="p">(</span><span class="mf">13.9</span><span class="p">,</span> <span class="p">[(</span><span class="mf">30.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">)],</span> <span class="s2">&quot;Slower car ahead&quot;</span><span class="p">),</span>
+<a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a>    <span class="p">(</span><span class="mf">13.9</span><span class="p">,</span> <span class="p">[(</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)],</span> <span class="s2">&quot;Stopped car very close&quot;</span><span class="p">),</span>
+<a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a>    <span class="p">(</span><span class="mf">13.9</span><span class="p">,</span> <span class="p">[(</span><span class="mf">50.0</span><span class="p">,</span> <span class="mf">13.9</span><span class="p">)],</span> <span class="s2">&quot;Car ahead at same speed&quot;</span><span class="p">),</span>
+<a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a><span class="p">]</span>
+<a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a>
+<a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a><span class="k">for</span> <span class="n">speed</span><span class="p">,</span> <span class="n">obs</span><span class="p">,</span> <span class="n">desc</span> <span class="ow">in</span> <span class="n">scenarios</span><span class="p">:</span>
+<a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a>    <span class="n">target</span><span class="p">,</span> <span class="n">action</span> <span class="o">=</span> <span class="n">rule_based_planner</span><span class="p">(</span><span class="n">speed</span><span class="p">,</span> <span class="n">obs</span><span class="p">)</span>
+<a id="__codelineno-2-40" name="__codelineno-2-40" href="#__codelineno-2-40"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">desc</span><span class="si">:</span><span class="s2">30s</span><span class="si">}</span><span class="s2">  →  </span><span class="si">{</span><span class="n">action</span><span class="si">:</span><span class="s2">15s</span><span class="si">}</span><span class="s2"> target_speed=</span><span class="si">{</span><span class="n">target</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> m/s (</span><span class="si">{</span><span class="n">target</span><span class="o">*</span><span class="mf">3.6</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> km/h)&quot;</span><span class="p">)</span>
+</code></pre></div></p>
+</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../03.%20vision-language-action%20models/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 视觉-语言-动作模型">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                视觉-语言-动作模型
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../05.%20space%20and%20extreme%20robotics/" class="md-footer__link md-footer__link--next" aria-label="下一页: 太空与极端环境机器人">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                太空与极端环境机器人
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/HenryNdubuaku/maths-cs-ai-compendium" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../javascripts/pyodide-runner.js"></script>
+      
+    
+  </body>
+</html>

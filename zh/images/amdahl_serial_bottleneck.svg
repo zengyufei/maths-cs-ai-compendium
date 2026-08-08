@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 220" width="650" height="220">
+  <text x="325" y="22" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">阿姆达尔定律：串行瓶颈</text>
+  <text x="30" y="62" text-anchor="start" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="10" font-weight="bold" fill="#666">1 核：</text>
+  <rect x="100" y="48" width="100" height="24" rx="3" fill="#e74c3c" fill-opacity="0.3" stroke="#e74c3c" stroke-width="1"/>
+  <text x="150" y="64" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="8" font-weight="bold" fill="#e74c3c">串行（10%）</text>
+  <rect x="200" y="48" width="400" height="24" rx="3" fill="#3498db" fill-opacity="0.3" stroke="#3498db" stroke-width="1"/>
+  <text x="400" y="64" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="8" font-weight="bold" fill="#3498db">并行（90%）</text>
+  <text x="30" y="107" text-anchor="start" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="10" font-weight="bold" fill="#666">4 核：</text>
+  <rect x="100" y="93" width="100" height="24" rx="3" fill="#e74c3c" fill-opacity="0.3" stroke="#e74c3c" stroke-width="1"/>
+  <text x="150" y="109" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="8" font-weight="bold" fill="#e74c3c">串行（10%）</text>
+  <rect x="200" y="93" width="100" height="24" rx="3" fill="#3498db" fill-opacity="0.3" stroke="#3498db" stroke-width="1"/>
+  <text x="250" y="109" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="8" font-weight="bold" fill="#3498db">90% ÷ 4</text>
+  <text x="320" y="109" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="10" fill="#27ae60">→ 加速 3.1 倍</text>
+  <text x="30" y="147" text-anchor="start" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="10" font-weight="bold" fill="#666">16 核：</text>
+  <rect x="100" y="133" width="100" height="24" rx="3" fill="#e74c3c" fill-opacity="0.3" stroke="#e74c3c" stroke-width="1"/>
+  <text x="150" y="149" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="8" font-weight="bold" fill="#e74c3c">串行（10%）</text>
+  <rect x="200" y="133" width="25" height="24" rx="3" fill="#3498db" fill-opacity="0.3" stroke="#3498db" stroke-width="1"/>
+  <text x="253" y="149" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="10" fill="#27ae60">→ 加速 6.4 倍</text>
+  <text x="30" y="187" text-anchor="start" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="10" font-weight="bold" fill="#666">∞ 核：</text>
+  <rect x="100" y="173" width="100" height="24" rx="3" fill="#e74c3c" fill-opacity="0.3" stroke="#e74c3c" stroke-width="1"/>
+  <text x="150" y="189" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="8" font-weight="bold" fill="#e74c3c">串行（10%）</text>
+  <text x="220" y="189" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="10" font-weight="bold" fill="#e74c3c">→ 最多 10 倍！</text>
+  <text x="325" y="215" text-anchor="middle" font-family="'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="10" fill="#666">串行部分（红色）无法并行化，它将最大加速比限制为 1/(1−p)</text>
+</svg>
